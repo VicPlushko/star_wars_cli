@@ -3,7 +3,6 @@ class Api
         url = "https://swapi.dev/api/people/"
         response = Net::HTTP.get(URI(url))
         people = JSON.parse(response)["results"]
-        ##how do I make person, ship, or planet objects
         people.each do |person|
             Person.new(
                 name: person["name"], 
@@ -16,7 +15,6 @@ class Api
                 gender: person["gender"]
             ) 
         end
-        binding.pry
     end   
 end
 
