@@ -4,12 +4,14 @@ class Cli
         puts "Hello!! Welcome to my Star Wars app!!"
         puts " "
         Api.get_all_info
+        while @input != "exit"
         StarWarsController.print_people(Person.all)
-        input = gets.strip
-        StarWarsController.display_selection(input)
-        puts " "
-        puts "Would you like to see information about someone else or see more selections?"
-        puts " "
+        @input = gets.strip
+        StarWarsController.display_selection(@input)
+        StarWarsController.prompt_user(@input)
+        @input = gets.strip.downcase
+        end
+
     end
 end
 
