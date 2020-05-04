@@ -10,6 +10,9 @@ class Cli
         StarWarsController.display_selection(@input)
         StarWarsController.prompt_user(@input)
         @input = gets.strip.downcase
+        if @input == "exit"
+            puts "Thank for using my app and May The Force Be With You!!"
+        end
         end
 
     end
