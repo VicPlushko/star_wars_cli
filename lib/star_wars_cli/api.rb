@@ -1,10 +1,22 @@
 class Api
     def self.get_all_info
         url = "https://swapi.dev/api/people/"
-        responce = Net::HTTP.get(URI(url))
-        people = JSON.parse(responce)["results"]
+        response = Net::HTTP.get(URI(url))
+        people = JSON.parse(response)["results"]
+        ##how do I make person, ship, or planet objects
+        people.each do |person|
+            Person.new(
+                name: person["name"], 
+                height: person["height"], 
+                mass: person["mass"], 
+                hair_color: person["hair_color"], 
+                skin_color: person["skin_color"], 
+                eye_color: person["eye_color"], 
+                birth_year: person["birth_year"], 
+                gender: person["gender"]
+            ) 
+        end
         binding.pry
-        ##how do I make person, ship, or planet objects 
     end   
 end
 
