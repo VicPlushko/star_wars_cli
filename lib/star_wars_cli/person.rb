@@ -18,6 +18,11 @@ class Person
   def self.all
     @@all
   end
+
+  def self.validate_input?(input)
+    input.to_i.between?(1, self.all.length)
+  end
+ 
 end
 
 ##responsible for making people objects
