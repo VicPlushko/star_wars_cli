@@ -19,10 +19,5 @@ class StarWarsController
     puts "Eye Color: #{person.eye_color}"
     puts "Skin Color: #{person.skin_color}"
   end
-  #prompt user shoukd be a flexible method and give other instructions
-  def self.prompt_user(input)
-    puts " "
-    puts "Would you like to make another selection, type 'yes' to make another selection or type 'exit' to exit the program"
-    puts " "
-  end
+
 end
