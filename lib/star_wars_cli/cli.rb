@@ -16,7 +16,7 @@ class Cli
         exit
       else
         puts "input is else"
-        puts "Pleae make a valid selection"
+        puts "Please make a valid selection"
       end
     end
   end
@@ -69,7 +69,7 @@ class Cli
         StarWarsController.display_people_selection(@input)
         prompt_user
         @input = gets.strip.downcase
-        if @input != "yes" && @input != "menu"
+        if @input != "yes" && @input != "menu" && @input != "exit"
           puts "invalid input"
           prompt_user
           @input = gets.strip.downcase
@@ -99,7 +99,7 @@ class Cli
         StarWarsController.display_species_selection(@input)
         prompt_user
         @input = gets.strip.downcase
-        if @input != "yes" && @input != "menu"
+        if @input != "yes" && @input != "menu" && @input != "exit"
           puts "invalid input"
           prompt_user
           @input = gets.strip.downcase
@@ -129,7 +129,7 @@ class Cli
         StarWarsController.display_planets_selection(@input)
         prompt_user
         @input = gets.strip.downcase
-        if @input != "yes" && @input != "menu"
+        if @input != "yes" && @input != "menu" && @input != "exit"
           puts "invalid input"
           prompt_user
           @input = gets.strip.downcase
@@ -159,7 +159,7 @@ class Cli
         StarWarsController.display_starships_selection(@input)
         prompt_user
         @input = gets.strip.downcase
-        if @input != "yes" && @input != "menu"
+        if @input != "yes" && @input != "menu" && @input != "exit"
           puts "invalid input"
           prompt_user
           @input = gets.strip.downcase
@@ -189,7 +189,7 @@ class Cli
         StarWarsController.display_vehicles_selection(@input)
         prompt_user
         @input = gets.strip.downcase
-        if @input != "yes" && @input != "menu"
+        if @input != "yes" && @input != "menu" && @input != "exit"
           puts "invalid input"
           prompt_user
           @input = gets.strip.downcase
