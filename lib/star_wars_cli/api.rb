@@ -12,7 +12,8 @@ class Api
         skin_color: person["skin_color"],
         eye_color: person["eye_color"],
         birth_year: person["birth_year"],
-        gender: person["gender"]
+        gender: person["gender"],
+        homeworld: person["homeworld"]
       )
     end
   end

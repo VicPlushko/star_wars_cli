@@ -54,6 +54,7 @@ class StarWarsController
     puts "Hair Color: #{person.hair_color}"
     puts "Eye Color: #{person.eye_color}"
     puts "Skin Color: #{person.skin_color}"
+    puts "Homeworld: #{person.homeworld}"
   end
 
   def self.display_species_selection(input)

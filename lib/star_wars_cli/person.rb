@@ -1,9 +1,9 @@
 class Person
-  attr_accessor :name, :height, :mass, :hair_color, :skin_color, :eye_color, :birth_year, :gender
+  attr_accessor :name, :height, :mass, :hair_color, :skin_color, :eye_color, :birth_year, :gender, :homeworld
 
   @@all = []
 
-  def initialize(name:, height:, mass:, hair_color:, skin_color:, eye_color:, birth_year:, gender:)
+  def initialize(name:, height:, mass:, hair_color:, skin_color:, eye_color:, birth_year:, gender:, homeworld:)
     @name = name
     @height = height
     @mass = mass
@@ -12,6 +12,7 @@ class Person
     @eye_color = eye_color
     @birth_year = birth_year
     @gender = gender
+    @homeworld = homeworld
     @@all << self
   end
 
