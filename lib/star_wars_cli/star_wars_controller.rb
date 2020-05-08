@@ -19,7 +19,7 @@ class StarWarsController
 
   def self.print_planets(planets)
     puts " "
-    puts "Please select the number of a species that you would like to learn more about"
+    puts "Please select the number of a planet that you would like to learn more about"
     planets.each.with_index(1) do |planet, index|
       puts "#{index}. #{planet.name}"
     end
@@ -28,7 +28,7 @@ class StarWarsController
 
   def self.print_starships(starships)
     puts " "
-    puts "Please select the number of a species that you would like to learn more about"
+    puts "Please select the number of a starship that you would like to learn more about"
     starships.each.with_index(1) do |starship, index|
       puts "#{index}. #{starship.name}"
     end
@@ -37,7 +37,7 @@ class StarWarsController
 
   def self.print_vehicles(vehicles)
     puts " "
-    puts "Please select the number of a species that you would like to learn more about"
+    puts "Please select the number of a vehicle that you would like to learn more about"
     vehicles.each.with_index(1) do |vehicle, index|
       puts "#{index}. #{vehicle.name}"
     end
