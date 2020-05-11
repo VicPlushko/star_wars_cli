@@ -63,20 +63,8 @@ class StarWarsController
     puts "Hair Color: #{person.hair_color}"
     puts "Eye Color: #{person.eye_color}"
     puts "Skin Color: #{person.skin_color}"
-    if planet = person.planet
-      puts "there is a planet associated"
-      puts "Homeworld: #{planet.name}"
-      
-    elsif planet = Planets.find_by_url(person.homeworld)
-      puts "planet does exist"
-      person.planet = planet
-      puts "Homeworld: #{planet.name}"
-    else
-     puts "planet doesnt exist"
-     planet = Api.get_specific_planet(person.homeworld)
-     person.planet = planet
-     puts "Homeworld: #{planet.name}"
-    end
+    puts "Homeworld: #{person.homeworld}"
+    puts "Homeworld: #{Person.get_planet_name}"
   end
 
   def self.display_species_selection(input)
@@ -103,6 +91,7 @@ class StarWarsController
     puts "Terrain: #{planets.terrain}"
     puts "Surface Water: #{planets.surface_water}"
     puts "Population: #{planets.population}"
+    puts "URL: #{planets.url}"
   end
 
   def self.display_starships_selection(input)

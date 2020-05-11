@@ -14,7 +14,7 @@ class Planets
         @surface_water = surface_water
         @population = population
         #@resident_urls = resident_urls
-        @url = url.sub! 'http:', 'https:'
+        @url = url.sub 'http:', 'https:'
         @@all << self
       end
     
