@@ -44,6 +44,15 @@ class StarWarsController
     puts " "
   end
 
+  def self.print_films(films)
+    puts " "
+    puts "Please select the number of a film that you would like to learn more about"
+    films.each.with_index(1) do |film, index|
+      puts "#{index}. #{film.title}"
+    end
+    puts " "
+  end
+
   def self.display_people_selection(input)
     person = Person.all[input.to_i - 1]
     puts "Name: #{person.name}"
@@ -127,6 +136,19 @@ class StarWarsController
     puts "Vehicle Class: #{vehicle.vehicle_class}"
   end
 
-
+  def self.display_film_selection(input)
+    films = Film.all[input.to_i - 1]
+    puts "Title: #{films.title}"
+    puts "Epsisode Number: #{films.episode_id}"
+    puts "Opening Crawl: #{films.opening_crawl}"
+    puts "Director: #{films.director}"
+    puts "Producer: #{films.producer}"
+    puts "Release Date: #{films.release_date}"
+    puts "Characters: #{films.characters}"
+    puts "Planets: #{films.planets}"
+    puts "Starships: #{films.starships}"
+    puts "Vehicles: #{films.vehicles}"
+    puts "Species: #{films.species}"
+  end
 
 end

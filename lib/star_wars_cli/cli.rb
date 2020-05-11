@@ -38,6 +38,9 @@ class Cli
     when "5"
       puts "selected vehicles"
       display_vehicles_list
+    when "6"
+      puts "selected films"
+      display_films_list
     end
   end
 
@@ -51,6 +54,7 @@ class Cli
     puts "3.Planets"
     puts "4.Starships"
     puts "5.Vehicles"
+    puts "6.Films"
     puts " "
     puts "Please select the number that corresponds with your selection"
   end
@@ -205,6 +209,36 @@ class Cli
     end
   end
 
+  def display_films_list
+    puts "inside films"
+    if Film.all.length == 0 # this is only a valid comparison when calling for first page
+      Api.get_all_films
+    end
+    while @input != "exit" && @input != "menu"
+      puts "inside film loop"
+      StarWarsController.print_films(Film.all)
+      @input = gets.strip.downcase
+      if Film.validate_input?(@input)
+        puts "vehicle input valid"
+        StarWarsController.display_film_selection(@input)
+        prompt_user
+        @input = gets.strip.downcase
+        if @input != "yes" && @input != "menu" && @input != "exit"
+          puts "invalid input"
+          prompt_user
+          @input = gets.strip.downcase
+        end
+      elsif @input == "exit"
+        puts "films input exit"
+        puts "Thank you for using my app and May The Force Be With You!!"
+        exit
+      else
+        puts "films input is else"
+        puts "Please enter a valid selection"
+      end
+    end
+  end
+
 
   def prompt_user
      puts " "
@@ -214,7 +248,7 @@ class Cli
   end
 
   def menu_valid_input?(input)
-    input.to_i.between?(1, 5)
+    input.to_i.between?(1, 6)
   end
 end
 

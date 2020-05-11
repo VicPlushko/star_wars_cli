@@ -53,7 +53,7 @@ class Api
         surface_water: planet["surface_water"],
         population: planet["population"],
         url: planet["url"],
-        resident_urls: planet["residents"]
+        #resident_urls: planet["residents"]
       )
     end
   end
@@ -72,7 +72,7 @@ class Api
         surface_water: json["surface_water"],
         population: json["population"],
         url: json["url"],
-        resident_urls: json["residents"]
+        #resident_urls: json["residents"]
       )
   end
 
@@ -103,19 +103,40 @@ def self.get_all_starships
   url = "https://swapi.dev/api/vehicles/"
   response = Net::HTTP.get(URI(url))
   vehicles = JSON.parse(response)["results"]
-  vehicles.each do |starship|
+  vehicles.each do |vehicle|
     Vehicle.new(
-      name: starship["name"],
-      model: starship["model"],
-      manufacturer: starship["manufacturer"],
-      cost_in_credits: starship["cost_in_credits"],
-      length: starship["length"],
-      max_atmosphering_speed: starship["max_atmosphering_speed"],
-      crew: starship["crew"],
-      passengers: starship["passengers"],
-      cargo_capacity: starship["cargo_capacity"],
-      consumables: starship["consumables"],
-      vehicle_class: starship["vehicle_class"]
+      name: vehicle["name"],
+      model: vehicle["model"],
+      manufacturer: vehicle["manufacturer"],
+      cost_in_credits: vehicle["cost_in_credits"],
+      length: vehicle["length"],
+      max_atmosphering_speed: vehicle["max_atmosphering_speed"],
+      crew: vehicle["crew"],
+      passengers: vehicle["passengers"],
+      cargo_capacity: vehicle["cargo_capacity"],
+      consumables: vehicle["consumables"],
+      vehicle_class: vehicle["vehicle_class"]
+    )
+  end
+ end
+
+ def self.get_all_films
+  url = "https://swapi.dev/api/films/"
+  response = Net::HTTP.get(URI(url))
+  films = JSON.parse(response)["results"]
+  films.each do |film|
+    Film.new(
+      title: film["title"],
+      episode_id: film["episode_id"],
+      opening_crawl: film["opening_crawl"],
+      director: film["director"],
+      producer: film["producer"],
+      release_date: film["release_date"],
+      characters: film["characters"],
+      planets: film["planets"],
+      starships: film["starships"],
+      vehicles: film["vehicles"],
+      species: film["species"]
     )
   end
  end
