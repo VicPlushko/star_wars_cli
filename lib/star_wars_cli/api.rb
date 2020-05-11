@@ -51,10 +51,31 @@ class Api
         gravity: planet["gravity"],
         terrain: planet["terrain"],
         surface_water: planet["surface_water"],
-        population: planet["population"]
+        population: planet["population"],
+        url: planet["url"],
+        resident_urls: planet["residents"]
       )
     end
   end
+
+  def self.get_specific_planet(url)
+    response = Net::HTTP.get(URI(url))
+    json = JSON.parse(response)
+      Planets.new(
+        name: json["name"],
+        rotation_period: json["rotation_period"],
+        orbital_period: json["orbital_period"],
+        diameter: json["diameter"],
+        climate: json["climate"],
+        gravity: json["gravity"],
+        terrain: json["terrain"],
+        surface_water: json["surface_water"],
+        population: json["population"],
+        url: json["url"],
+        resident_urls: json["residents"]
+      )
+  end
+
 
 def self.get_all_starships
   url = "https://swapi.dev/api/starships/"

@@ -54,7 +54,20 @@ class StarWarsController
     puts "Hair Color: #{person.hair_color}"
     puts "Eye Color: #{person.eye_color}"
     puts "Skin Color: #{person.skin_color}"
-    puts "Homeworld: #{person.homeworld}"
+    if planet = person.planet
+      puts "there is a planet associated"
+      puts "Homeworld: #{planet.name}"
+      
+    elsif planet = Planets.find_by_url(person.homeworld)
+      puts "planet does exist"
+      person.planet = planet
+      puts "Homeworld: #{planet.name}"
+    else
+     puts "planet doesnt exist"
+     planet = Api.get_specific_planet(person.homeworld)
+     person.planet = planet
+     puts "Homeworld: #{planet.name}"
+    end
   end
 
   def self.display_species_selection(input)

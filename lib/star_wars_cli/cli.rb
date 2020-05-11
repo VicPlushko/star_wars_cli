@@ -207,8 +207,8 @@ class Cli
 
 
   def prompt_user
-    puts "prompt user again"
-    puts " "
+     puts " "
+     puts "prompt user again"
     puts "Would you like to make another selection, type 'yes' to make another selection, type 'menu' to go back and choose another topic or type 'exit' to exit."
     puts " "
   end

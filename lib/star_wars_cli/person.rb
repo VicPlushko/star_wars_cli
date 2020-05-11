@@ -1,5 +1,5 @@
 class Person
-  attr_accessor :name, :height, :mass, :hair_color, :skin_color, :eye_color, :birth_year, :gender, :homeworld
+  attr_accessor :name, :height, :mass, :hair_color, :skin_color, :eye_color, :birth_year, :gender, :homeworld, :planet
 
   @@all = []
 
@@ -12,7 +12,8 @@ class Person
     @eye_color = eye_color
     @birth_year = birth_year
     @gender = gender
-    @homeworld = homeworld
+    @homeworld = homeworld.sub! 'http:', 'https:'
+    @planet = nil
     @@all << self
   end
 
