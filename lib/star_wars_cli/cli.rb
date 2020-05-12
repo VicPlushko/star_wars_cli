@@ -121,7 +121,6 @@ class Cli
 
   def display_planets_list
     puts "inside planets"
-    #if Planets.all.length == 0 # this is only a valid comparison when calling for first page
       Api.get_all_planets
     while @input != "exit" && @input != "menu"
       puts "inside planets loop"

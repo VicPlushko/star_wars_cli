@@ -30,7 +30,23 @@ class Person
     self.all.find {|x| x.url == url}
   end
 
-  def self.get_planet_name
+  def get_planet_name
+    if planet = @planet
+      puts "there is a planet associated"
+      planet.name
+      
+    elsif planet = Planets.find_by_url(@homeworld)
+      puts "planet does exist"
+      @planet = planet
+      planet.name
+    else
+     puts "planet doesnt exist"
+     puts "home world is #{@homeworld}"
+     planet = Api.get_specific_planet(@homeworld)
+     @planet = planet
+     planet.name
+    end
+  end
     if planet = @planet
       puts "there is a planet associated"
       planet.name

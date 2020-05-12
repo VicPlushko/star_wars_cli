@@ -27,6 +27,6 @@ class Planets
       end
 
       def self.find_by_url(url)
-        self.all.find {|planet| planet.url == url}
+        self.all.find {|x| x.url == url}
       end
 end
