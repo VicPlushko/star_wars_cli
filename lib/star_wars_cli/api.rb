@@ -13,8 +13,9 @@ class Api
         eye_color: person["eye_color"],
         birth_year: person["birth_year"],
         gender: person["gender"],
-        homeworld: person["homeworld"],
-        url: person["url"]
+        planet_url: person["homeworld"],
+        url: person["url"],
+        starships_urls: person["starships"]
       )
     end
   end
@@ -34,7 +35,7 @@ class Api
         eye_colors: specie["eye_colors"],
         average_lifespan: specie["average_lifespan"],
         language: specie["language"],
-        url: specie["url"]
+        url: specie["url"],
       )
     end
   end
@@ -99,9 +100,29 @@ class Api
         consumables: starship["consumables"],
         hyperdrive_rating: starship["hyperdrive_rating"],
         starship_class: starship["starship_class"],
-        url: starship["url"]
+        url: starship["url"],
       )
     end
+  end
+
+  def self.get_specific_starship(url)
+    response = Net::HTTP.get(URI(url.sub 'http:', 'https:'))
+    json = JSON.parse(response)
+    Starship.new(
+      name: json["name"],
+      model: json["model"],
+      manufacturer: json["manufacturer"],
+      cost_in_credits: json["cost_in_credits"],
+      length: json["length"],
+      max_atmosphering_speed: json["max_atmosphering_speed"],
+      crew: json["crew"],
+      passengers: json["passengers"],
+      cargo_capacity: json["cargo_capacity"],
+      consumables: json["consumables"],
+      hyperdrive_rating: json["hyperdrive_rating"],
+      starship_class: json["starship_class"],
+      url: json["url"],
+    )
   end
 
   def self.get_all_vehicles
@@ -121,7 +142,7 @@ class Api
         cargo_capacity: vehicle["cargo_capacity"],
         consumables: vehicle["consumables"],
         vehicle_class: vehicle["vehicle_class"],
-        url: vehicle["url"]
+        url: vehicle["url"],
       )
     end
   end
@@ -143,7 +164,7 @@ class Api
         starships: film["starships"],
         vehicles: film["vehicles"],
         species: film["species"],
-        url: film["url"]
+        url: film["url"],
       )
     end
   end
