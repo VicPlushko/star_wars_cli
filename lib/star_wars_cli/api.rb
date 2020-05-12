@@ -15,7 +15,8 @@ class Api
         gender: person["gender"],
         planet_url: person["homeworld"],
         url: person["url"],
-        starships_urls: person["starships"]
+        starships_urls: person["starships"],
+        vehicles_urls: person["vehicles"]
       )
     end
   end
@@ -35,7 +36,7 @@ class Api
         eye_colors: specie["eye_colors"],
         average_lifespan: specie["average_lifespan"],
         language: specie["language"],
-        url: specie["url"],
+        url: specie["url"]
       )
     end
   end
@@ -57,7 +58,7 @@ class Api
           terrain: planet["terrain"],
           surface_water: planet["surface_water"],
           population: planet["population"],
-          url: planet["url"],
+          url: planet["url"]
           #resident_urls: planet["residents"]
         )
       end
@@ -77,7 +78,7 @@ class Api
       terrain: json["terrain"],
       surface_water: json["surface_water"],
       population: json["population"],
-      url: json["url"],
+      url: json["url"]
       #resident_urls: json["residents"]
     )
   end
@@ -100,13 +101,13 @@ class Api
         consumables: starship["consumables"],
         hyperdrive_rating: starship["hyperdrive_rating"],
         starship_class: starship["starship_class"],
-        url: starship["url"],
+        url: starship["url"]
       )
     end
   end
 
   def self.get_specific_starship(url)
-    response = Net::HTTP.get(URI(url.sub 'http:', 'https:'))
+    response = Net::HTTP.get(URI(url.sub "http:", "https:"))
     json = JSON.parse(response)
     Starship.new(
       name: json["name"],
@@ -121,7 +122,7 @@ class Api
       consumables: json["consumables"],
       hyperdrive_rating: json["hyperdrive_rating"],
       starship_class: json["starship_class"],
-      url: json["url"],
+      url: json["url"]
     )
   end
 
@@ -142,10 +143,29 @@ class Api
         cargo_capacity: vehicle["cargo_capacity"],
         consumables: vehicle["consumables"],
         vehicle_class: vehicle["vehicle_class"],
-        url: vehicle["url"],
+        url: vehicle["url"]
       )
     end
   end
+
+    def self.get_specific_vehicle(url)
+      response = Net::HTTP.get(URI(url.sub "http:", "https:"))
+      json = JSON.parse(response)
+      Vehicle.new(
+        name: json["name"],
+        model: json["model"],
+        manufacturer: json["manufacturer"],
+        cost_in_credits: json["cost_in_credits"],
+        length: json["length"],
+        max_atmosphering_speed: json["max_atmosphering_speed"],
+        crew: json["crew"],
+        passengers: json["passengers"],
+        cargo_capacity: json["cargo_capacity"],
+        consumables: json["consumables"],
+        vehicle_class: json["vehicle_class"],
+        url: json["url"]
+      )
+    end
 
   def self.get_all_films
     url = "https://swapi.dev/api/films/"
@@ -164,7 +184,7 @@ class Api
         starships: film["starships"],
         vehicles: film["vehicles"],
         species: film["species"],
-        url: film["url"],
+        url: film["url"]
       )
     end
   end

@@ -65,6 +65,7 @@ class StarWarsController
     puts "Skin Color: #{person.skin_color}"
     puts "Homeworld: #{person.get_planet_name}"
     puts "Starships: #{person.get_starship_names(person.starships_urls)}"
+    puts "Vehicles: #{person.get_vehicle_names(person.vehicles_urls)}"
   end
 
   def self.display_species_selection(input)
@@ -139,5 +140,4 @@ class StarWarsController
     puts "Vehicles: #{films.vehicles}"
     puts "Species: #{films.species}"
   end
-
 end

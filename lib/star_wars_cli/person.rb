@@ -1,9 +1,9 @@
 class Person
-  attr_accessor :name, :height, :mass, :hair_color, :skin_color, :eye_color, :birth_year, :gender, :planet_url, :planet, :url, :starships_urls, :starships
+  attr_accessor :name, :height, :mass, :hair_color, :skin_color, :eye_color, :birth_year, :gender, :planet_url, :planet, :url, :starships_urls, :starships, :vehicles_urls, :vehicles
 
   @@all = []
 
-  def initialize(name:, height:, mass:, hair_color:, skin_color:, eye_color:, birth_year:, gender:, planet_url:, url:, starships_urls:)
+  def initialize(name:, height:, mass:, hair_color:, skin_color:, eye_color:, birth_year:, gender:, planet_url:, url:, starships_urls:, vehicles_urls:)
     @name = name
     @height = height
     @mass = mass
@@ -16,6 +16,8 @@ class Person
     @planet = nil
     @starships_urls = starships_urls
     @starships = []
+    @vehicles_urls = vehicles_urls
+    @vehicles = []
     @url = url.sub "http:", "https:"
     @@all << self
   end
@@ -50,7 +52,6 @@ class Person
   end
 
   def get_starship_name(url)
-    puts url
     if starships.length == 0
       puts "there are no starships"
       starship = Api.get_specific_starship(url)
@@ -69,10 +70,44 @@ class Person
   end
 
   def get_starship_names(urls)
-    names = []
-    urls.each do |url|
-      names << get_starship_name(url)
+    if urls.length == 0
+      "N/A"
+    else
+      names = []
+      urls.each do |url|
+        names << get_starship_name(url)
+      end
+      names
     end
-    names
+  end
+
+  def get_vehicle_name(url)
+    if vehicles.length == 0
+      puts "there are no vehicles"
+      vehicle = Api.get_specific_vehicle(url)
+      @vehicles << vehicle
+      vehicle.name
+    elsif vehicle = Vehicle.find_by_url(url)
+      puts "there is a vehicle"
+      @vehicles << vehicle
+      vehicle.name
+    else
+      puts "vehicle does not exist and needs to be made"
+      vehicle = Api.get_specific_vehicle(url)
+      @vehicles << vehicle
+      vehicle.name
+    end
+  end
+
+  def get_vehicle_names(urls)
+    if urls.length == 0
+      "N/A"
+    else
+      names = []
+      urls.each do |url|
+        names << get_vehicle_name(url)
+      end
+      names
+    end
   end
 end
