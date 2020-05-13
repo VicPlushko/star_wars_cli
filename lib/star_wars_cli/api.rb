@@ -4,22 +4,24 @@ class Api
     response = Net::HTTP.get(URI(url))
     people = JSON.parse(response)["results"]
     people.each do |person|
-      Person.new(
-        name: person["name"],
-        height: person["height"],
-        mass: person["mass"],
-        hair_color: person["hair_color"],
-        skin_color: person["skin_color"],
-        eye_color: person["eye_color"],
-        birth_year: person["birth_year"],
-        gender: person["gender"],
-        species_url: person["species"],
-        planet_url: person["homeworld"],
-        url: person["url"],
-        starships_urls: person["starships"],
-        vehicles_urls: person["vehicles"],
-        films_urls: person["films"],
-      )
+      if !Person.find_by_url(person["url"].sub "http:", "https:")
+        Person.new(
+          name: person["name"],
+          height: person["height"],
+          mass: person["mass"],
+          hair_color: person["hair_color"],
+          skin_color: person["skin_color"],
+          eye_color: person["eye_color"],
+          birth_year: person["birth_year"],
+          gender: person["gender"],
+          species_url: person["species"],
+          planet_url: person["homeworld"],
+          url: person["url"],
+          starships_urls: person["starships"],
+          vehicles_urls: person["vehicles"],
+          films_urls: person["films"],
+        )
+      end
     end
   end
 
@@ -49,21 +51,23 @@ class Api
     response = Net::HTTP.get(URI(url))
     species = JSON.parse(response)["results"]
     species.each do |specie|
-      Species.new(
-        name: specie["name"],
-        classification: specie["classification"],
-        designation: specie["designation"],
-        average_height: specie["average_height"],
-        skin_colors: specie["skin_colors"],
-        hair_colors: specie["hair_colors"],
-        eye_colors: specie["eye_colors"],
-        average_lifespan: specie["average_lifespan"],
-        language: specie["language"],
-        planet_url: specie["homeworld"],
-        people_urls: specie["people"],
-        films_urls: specie["films"],
-        url: specie["url"],
-      )
+      if !Species.find_by_url(specie["url"].sub "http:", "https:")
+        Species.new(
+          name: specie["name"],
+          classification: specie["classification"],
+          designation: specie["designation"],
+          average_height: specie["average_height"],
+          skin_colors: specie["skin_colors"],
+          hair_colors: specie["hair_colors"],
+          eye_colors: specie["eye_colors"],
+          average_lifespan: specie["average_lifespan"],
+          language: specie["language"],
+          planet_url: specie["homeworld"],
+          people_urls: specie["people"],
+          films_urls: specie["films"],
+          url: specie["url"],
+        )
+      end
     end
   end
 
@@ -136,23 +140,25 @@ class Api
     response = Net::HTTP.get(URI(url))
     starships = JSON.parse(response)["results"]
     starships.each do |starship|
-      Starship.new(
-        name: starship["name"],
-        model: starship["model"],
-        manufacturer: starship["manufacturer"],
-        cost_in_credits: starship["cost_in_credits"],
-        length: starship["length"],
-        max_atmosphering_speed: starship["max_atmosphering_speed"],
-        crew: starship["crew"],
-        passengers: starship["passengers"],
-        cargo_capacity: starship["cargo_capacity"],
-        consumables: starship["consumables"],
-        hyperdrive_rating: starship["hyperdrive_rating"],
-        starship_class: starship["starship_class"],
-        pilots_urls: starship["pilots"],
-        films_urls: starship["films"],
-        url: starship["url"],
-      )
+      if !Starship.find_by_url(starship["url"].sub "http:", "https:")
+        Starship.new(
+          name: starship["name"],
+          model: starship["model"],
+          manufacturer: starship["manufacturer"],
+          cost_in_credits: starship["cost_in_credits"],
+          length: starship["length"],
+          max_atmosphering_speed: starship["max_atmosphering_speed"],
+          crew: starship["crew"],
+          passengers: starship["passengers"],
+          cargo_capacity: starship["cargo_capacity"],
+          consumables: starship["consumables"],
+          hyperdrive_rating: starship["hyperdrive_rating"],
+          starship_class: starship["starship_class"],
+          pilots_urls: starship["pilots"],
+          films_urls: starship["films"],
+          url: starship["url"],
+        )
+      end
     end
   end
 
@@ -183,22 +189,24 @@ class Api
     response = Net::HTTP.get(URI(url))
     vehicles = JSON.parse(response)["results"]
     vehicles.each do |vehicle|
-      Vehicle.new(
-        name: vehicle["name"],
-        model: vehicle["model"],
-        manufacturer: vehicle["manufacturer"],
-        cost_in_credits: vehicle["cost_in_credits"],
-        length: vehicle["length"],
-        max_atmosphering_speed: vehicle["max_atmosphering_speed"],
-        crew: vehicle["crew"],
-        passengers: vehicle["passengers"],
-        cargo_capacity: vehicle["cargo_capacity"],
-        consumables: vehicle["consumables"],
-        vehicle_class: vehicle["vehicle_class"],
-        pilots_urls: vehicle["pilots"],
-        films_urls: vehicle["films"],
-        url: vehicle["url"],
-      )
+      if !Vehicle.find_by_url(vehicle["url"].sub "http:", "https:")
+        Vehicle.new(
+          name: vehicle["name"],
+          model: vehicle["model"],
+          manufacturer: vehicle["manufacturer"],
+          cost_in_credits: vehicle["cost_in_credits"],
+          length: vehicle["length"],
+          max_atmosphering_speed: vehicle["max_atmosphering_speed"],
+          crew: vehicle["crew"],
+          passengers: vehicle["passengers"],
+          cargo_capacity: vehicle["cargo_capacity"],
+          consumables: vehicle["consumables"],
+          vehicle_class: vehicle["vehicle_class"],
+          pilots_urls: vehicle["pilots"],
+          films_urls: vehicle["films"],
+          url: vehicle["url"],
+        )
+      end
     end
   end
 
@@ -228,20 +236,22 @@ class Api
     response = Net::HTTP.get(URI(url))
     films = JSON.parse(response)["results"]
     films.each do |film|
-      Film.new(
-        title: film["title"],
-        episode_id: film["episode_id"],
-        opening_crawl: film["opening_crawl"],
-        director: film["director"],
-        producer: film["producer"],
-        release_date: film["release_date"],
-        characters_urls: film["characters"],
-        planets_urls: film["planets"],
-        starships_urls: film["starships"],
-        vehicles_urls: film["vehicles"],
-        species_urls: film["species"],
-        url: film["url"],
-      )
+      if !Film.find_by_url(film["url"].sub "http:", "https:")
+        Film.new(
+          title: film["title"],
+          episode_id: film["episode_id"],
+          opening_crawl: film["opening_crawl"],
+          director: film["director"],
+          producer: film["producer"],
+          release_date: film["release_date"],
+          characters_urls: film["characters"],
+          planets_urls: film["planets"],
+          starships_urls: film["starships"],
+          vehicles_urls: film["vehicles"],
+          species_urls: film["species"],
+          url: film["url"],
+        )
+      end
     end
   end
 
