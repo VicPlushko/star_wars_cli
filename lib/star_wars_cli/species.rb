@@ -74,7 +74,7 @@ class Species
 
   def get_people_names(urls)
     if urls.length == 0
-      "N/A"
+      "n/a"
     else
       names = []
       urls.each do |url|
@@ -104,7 +104,7 @@ class Species
 
   def get_film_names(urls)
     if urls.length == 0
-      "N/A"
+      "n/a"
     else
       names = []
       urls.each do |url|

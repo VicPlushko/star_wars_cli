@@ -53,7 +53,7 @@ class Planets
     
       def get_resident_names(urls)
         if urls.length == 0
-          "N/A"
+          "n/a"
         else
           names = []
           urls.each do |url|
@@ -83,7 +83,7 @@ class Planets
     
       def get_film_names(urls)
         if urls.length == 0
-          "N/A"
+          "n/a"
         else
           names = []
           urls.each do |url|

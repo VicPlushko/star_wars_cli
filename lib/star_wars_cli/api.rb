@@ -191,6 +191,8 @@ class Api
         cargo_capacity: vehicle["cargo_capacity"],
         consumables: vehicle["consumables"],
         vehicle_class: vehicle["vehicle_class"],
+        pilots_urls: vehicle["pilots"],
+        films_urls: vehicle["films"],
         url: vehicle["url"],
       )
     end
@@ -211,6 +213,8 @@ class Api
       cargo_capacity: json["cargo_capacity"],
       consumables: json["consumables"],
       vehicle_class: json["vehicle_class"],
+      pilots_urls: json["pilots"],
+      films_urls: json["films"],
       url: json["url"],
     )
   end

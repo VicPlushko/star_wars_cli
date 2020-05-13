@@ -75,7 +75,7 @@ class Person
 
   def get_starship_names(urls)
     if urls.length == 0
-      "N/A"
+      "n/a"
     else
       names = []
       urls.each do |url|
@@ -105,7 +105,7 @@ class Person
 
   def get_vehicle_names(urls)
     if urls.length == 0
-      "N/A"
+      "n/a"
     else
       names = []
       urls.each do |url|
@@ -135,7 +135,7 @@ class Person
 
   def get_film_names(urls)
     if urls.length == 0
-      "N/A"
+      "n/a"
     else
       names = []
       urls.each do |url|
@@ -165,7 +165,7 @@ class Person
 
   def get_specie_names(urls)
     if urls.length == 0
-      "N/A"
+      "n/a"
     else
       names = []
       urls.each do |url|

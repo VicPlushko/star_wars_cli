@@ -132,6 +132,9 @@ class StarWarsController
     puts "Cargo Capacity: #{vehicle.cargo_capacity}"
     puts "Consumables: #{vehicle.consumables}"
     puts "Vehicle Class: #{vehicle.vehicle_class}"
+    puts "Pilots: #{vehicle.get_pilot_names(vehicle.pilots_urls)}"
+    puts "Films: #{vehicle.get_film_names(vehicle.films_urls)}"
+
   end
 
   def self.display_film_selection(input)
