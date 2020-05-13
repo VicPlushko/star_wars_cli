@@ -95,6 +95,9 @@ class StarWarsController
     puts "Surface Water: #{planets.surface_water}"
     puts "Population: #{planets.population}"
     puts "URL: #{planets.url}"
+    puts "Residents: #{planets.get_resident_names(planets.residents_urls)}"
+    puts "Films: #{planets.get_film_names(planets.films_urls)}"
+
   end
 
   def self.display_starships_selection(input)
