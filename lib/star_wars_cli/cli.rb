@@ -92,6 +92,7 @@ class Cli
   def display_species_list
     puts "inside species"
     if Species.all.length == 0 # this is only a valid comparison when calling for first page
+      puts "no call being mde"
       Api.get_all_species
     end
     while @input != "exit" && @input != "menu"

@@ -28,19 +28,19 @@ class Api
     json = JSON.parse(response)
     Person.new(
       name: json["name"],
-        height: json["height"],
-        mass: json["mass"],
-        hair_color: json["hair_color"],
-        skin_color: json["skin_color"],
-        eye_color: json["eye_color"],
-        birth_year: json["birth_year"],
-        gender: json["gender"],
-        species_url: json["species"],
-        planet_url: json["homeworld"],
-        url: json["url"],
-        starships_urls: json["starships"],
-        vehicles_urls: json["vehicles"],
-        films_urls: json["films"],
+      height: json["height"],
+      mass: json["mass"],
+      hair_color: json["hair_color"],
+      skin_color: json["skin_color"],
+      eye_color: json["eye_color"],
+      birth_year: json["birth_year"],
+      gender: json["gender"],
+      species_url: json["species"],
+      planet_url: json["homeworld"],
+      url: json["url"],
+      starships_urls: json["starships"],
+      vehicles_urls: json["vehicles"],
+      films_urls: json["films"],
     )
   end
 
@@ -59,6 +59,8 @@ class Api
         eye_colors: specie["eye_colors"],
         average_lifespan: specie["average_lifespan"],
         language: specie["language"],
+        planet_url: specie["homeworld"],
+        people_urls: specie["people"],
         url: specie["url"],
       )
     end
@@ -68,16 +70,18 @@ class Api
     response = Net::HTTP.get(URI(url.sub "http:", "https:"))
     json = JSON.parse(response)
     Species.new(
-      name: specie["name"],
-      classification: specie["classification"],
-      designation: specie["designation"],
-      average_height: specie["average_height"],
-      skin_colors: specie["skin_colors"],
-      hair_colors: specie["hair_colors"],
-      eye_colors: specie["eye_colors"],
-      average_lifespan: specie["average_lifespan"],
-      language: specie["language"],
-      url: specie["url"],
+      name: json["name"],
+      classification: json["classification"],
+      designation: json["designation"],
+      average_height: json["average_height"],
+      skin_colors: json["skin_colors"],
+      hair_colors: json["hair_colors"],
+      eye_colors: json["eye_colors"],
+      average_lifespan: json["average_lifespan"],
+      language: json["language"],
+      planet_url: json["homeworld"],
+      people_urls: specie["people"],
+      url: json["url"],
     )
   end
 
@@ -107,7 +111,7 @@ class Api
   end
 
   def self.get_specific_planet(url)
-    response = Net::HTTP.get(URI(url))
+    response = Net::HTTP.get(URI(url.sub "http:", "https:"))
     json = JSON.parse(response)
     Planets.new(
       name: json["name"],
@@ -120,7 +124,7 @@ class Api
       surface_water: json["surface_water"],
       population: json["population"],
       url: json["url"],
-      resident_urls: json["residents"],
+      residents_urls: json["residents"],
       films_urls: json["films"],
     )
   end
