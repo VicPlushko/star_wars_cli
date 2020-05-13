@@ -4,7 +4,7 @@ class Api
     response = Net::HTTP.get(URI(url))
     people = JSON.parse(response)["results"]
     people.each do |person|
-      if !Person.find_by_url(person["url"].sub "http:", "https:")
+      if !Person.find_by_url(person["url"])
         Person.new(
           name: person["name"],
           height: person["height"],
@@ -51,7 +51,7 @@ class Api
     response = Net::HTTP.get(URI(url))
     species = JSON.parse(response)["results"]
     species.each do |specie|
-      if !Species.find_by_url(specie["url"].sub "http:", "https:")
+      if !Species.find_by_url(specie["url"])
         Species.new(
           name: specie["name"],
           classification: specie["classification"],
@@ -97,7 +97,7 @@ class Api
     planets = JSON.parse(response)["results"]
     planets.each do |planet|
       puts "json url value #{planet["url"]}"
-      if !Planets.find_by_url(planet["url"].sub "http:", "https:")
+      if !Planets.find_by_url(planet["url"])
         Planets.new(
           name: planet["name"],
           rotation_period: planet["rotation_period"],
@@ -140,7 +140,7 @@ class Api
     response = Net::HTTP.get(URI(url))
     starships = JSON.parse(response)["results"]
     starships.each do |starship|
-      if !Starship.find_by_url(starship["url"].sub "http:", "https:")
+      if !Starship.find_by_url(starship["url"])
         Starship.new(
           name: starship["name"],
           model: starship["model"],
@@ -189,7 +189,7 @@ class Api
     response = Net::HTTP.get(URI(url))
     vehicles = JSON.parse(response)["results"]
     vehicles.each do |vehicle|
-      if !Vehicle.find_by_url(vehicle["url"].sub "http:", "https:")
+      if !Vehicle.find_by_url(vehicle["url"])
         Vehicle.new(
           name: vehicle["name"],
           model: vehicle["model"],
@@ -236,7 +236,7 @@ class Api
     response = Net::HTTP.get(URI(url))
     films = JSON.parse(response)["results"]
     films.each do |film|
-      if !Film.find_by_url(film["url"].sub "http:", "https:")
+      if !Film.find_by_url(film["url"])
         Film.new(
           title: film["title"],
           episode_id: film["episode_id"],

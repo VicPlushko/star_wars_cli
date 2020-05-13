@@ -19,7 +19,7 @@ class Species
     @people = []
     @films_urls = films_urls
     @films = []
-    @url = url.sub "http:", "https:"
+    @url = url
     @@all << self
   end
 
@@ -55,20 +55,18 @@ class Species
   end
 
   def get_person_name(url)
-    if people.length == 0
-      puts "there are no person"
-      person = Api.get_specific_people(url)
-      @people << person
-      person.name
-    elsif person = Person.find_by_url(url)
-      puts "there is a person"
-      @people << person
-      person.name
-    else
-      puts "resident does not exist and needs to be made"
-      person = Api.get_specific_people(url)
-      @people << person
-      person.name
+    if person = @people.find {|person| person.url == url}
+        puts "found person in people"
+        person.name
+      elsif person = Person.find_by_url(url)
+        puts "there is a person"
+        @people << person
+        person.name
+      else
+        puts "person does not exist and needs to be made"
+        person = Api.get_specific_people(url)
+        @people << person
+        person.name
     end
   end
 
@@ -85,20 +83,18 @@ class Species
   end
 
   def get_film_name(url)
-    if films.length == 0
-      puts "there are no film"
-      film = Api.get_specific_film(url)
-      @films << film
-      film.title
-    elsif film = Film.find_by_url(url)
-      puts "there is a film"
-      @films << film
-      film.title
-    else
-      puts "film does not exist and needs to be made"
-      film = Api.get_specific_film(url)
-      @films << film
-      film.title
+    if film = @films.find {|film| film.url == url}
+        puts "found film in films"
+        film.title
+      elsif film = Film.find_by_url(url)
+        puts "there is a film"
+        @films << film
+        film.title
+      else
+        puts "film does not exist and needs to be made"
+        film = Api.get_specific_film(url)
+        @films << film
+        film.title
     end
   end
 

@@ -14,7 +14,7 @@ class Person
     @gender = gender
     @species_url = species_url
     @species = []
-    @planet_url = planet_url.sub "http:", "https:"
+    @planet_url = planet_url
     @planet = nil
     @starships_urls = starships_urls
     @starships = []
@@ -22,7 +22,7 @@ class Person
     @vehicles = []
     @films_urls = films_urls
     @films = []
-    @url = url.sub "http:", "https:"
+    @url = url
     @@all << self
   end
 
@@ -56,20 +56,18 @@ class Person
   end
 
   def get_starship_name(url)
-    if starships.length == 0
-      puts "there are no starships"
-      starship = Api.get_specific_starship(url)
-      @starships << starship
-      starship.name
-    elsif starship = Starship.find_by_url(url)
-      puts "there is a starship"
-      @starships << starship
-      starship.name
-    else
-      puts "starship does not exist and needs to be made"
-      starship = Api.get_specific_starship(url)
-      @starships << starship
-      starship.name
+    if starship = @starships.find {|starship| starship.url == url}
+        puts "found starship in starships"
+        starship.name
+      elsif starship = Starship.find_by_url(url)
+        puts "there is a starship"
+        @starships << starship
+        starship.name
+      else
+        puts "starship does not exist and needs to be made"
+        starship = Api.get_specific_starship(url)
+        @starships << starship
+        starship.name
     end
   end
 
@@ -86,20 +84,18 @@ class Person
   end
 
   def get_vehicle_name(url)
-    if vehicles.length == 0
-      puts "there are no vehicles"
-      vehicle = Api.get_specific_vehicle(url)
-      @vehicles << vehicle
-      vehicle.name
-    elsif vehicle = Vehicle.find_by_url(url)
-      puts "there is a vehicle"
-      @vehicles << vehicle
-      vehicle.name
-    else
-      puts "vehicle does not exist and needs to be made"
-      vehicle = Api.get_specific_vehicle(url)
-      @vehicles << vehicle
-      vehicle.name
+    if vehicle = @vehicles.find {|vehicle| vehicle.url == url}
+        puts "found vehicle in vehicles"
+        vehicle.name
+      elsif vehicle = Vehicle.find_by_url(url)
+        puts "there is a vehicle"
+        @vehicles << vehicle
+        vehicle.name
+      else
+        puts "vehicle does not exist and needs to be made"
+        vehicle = Api.get_specific_vehicle(url)
+        @vehicles << vehicle
+        vehicle.name
     end
   end
 
@@ -116,20 +112,18 @@ class Person
   end
 
   def get_film_name(url)
-    if films.length == 0
-      puts "there are no film"
-      film = Api.get_specific_film(url)
-      @films << film
-      film.title
-    elsif film = Film.find_by_url(url)
-      puts "there is a film"
-      @films << film
-      film.title
-    else
-      puts "film does not exist and needs to be made"
-      film = Api.get_specific_film(url)
-      @films << film
-      film.title
+    if film = @films.find {|film| film.url == url}
+        puts "found film in films"
+        film.title
+      elsif film = Film.find_by_url(url)
+        puts "there is a film"
+        @films << film
+        film.title
+      else
+        puts "film does not exist and needs to be made"
+        film = Api.get_specific_film(url)
+        @films << film
+        film.title
     end
   end
 
@@ -146,20 +140,18 @@ class Person
   end
 
   def get_specie_name(url)
-    if species.length == 0
-      puts "there are no specie"
-      specie = Api.get_specific_species(url)
-      @species << specie
-      specie.name
-    elsif specie = Species.find_by_url(url)
-      puts "there is a specie"
-      @species << specie
-      specie.name
-    else
-      puts "specie does not exist and needs to be made"
-      specie = Api.get_specific_film(url)
-      @species << specie
-      specie.name
+    if specie = @species.find {|specie| specie.url == url}
+        puts "found specie in species"
+        specie.name
+      elsif specie = Species.find_by_url(url)
+        puts "there is a specie"
+        @species << specie
+        specie.name
+      else
+        puts "specie does not exist and needs to be made"
+        specie = Api.get_specific_species(url)
+        @species << specie
+        specie.name
     end
   end
 

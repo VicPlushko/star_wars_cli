@@ -20,7 +20,7 @@ class Starship
         @pilots = []
         @films_urls = films_urls
         @films = []
-        @url = url.sub 'http:', 'https:'
+        @url = url
         @@all << self
       end
     
@@ -37,20 +37,18 @@ class Starship
       end
 
       def get_pilot_name(url)
-        if pilots.length == 0
-          puts "there are no pilot"
-          pilot = Api.get_specific_people(url)
-          @pilots << pilot
-          pilot.name
-        elsif pilot = Person.find_by_url(url)
-          puts "there is a pilot"
-          @pilots << pilot
-          pilot.name
-        else
-          puts "pilot does not exist and needs to be made"
-          pilot = Api.get_specific_people(url)
-          @pilots << pilot
-          pilot.name
+        if pilot = @pilots.find {|pilot| pilot.url == url}
+        puts "found pilot in pilots"
+        pilot.name
+      elsif pilot = Person.find_by_url(url)
+        puts "there is a pilots"
+        @pilots << pilot
+        pilot.name
+      else
+        puts "pilot does not exist and needs to be made"
+        pilot = Api.get_specific_people(url)
+        @pilots << pilot
+        pilot.name
         end
       end
     
@@ -67,20 +65,18 @@ class Starship
       end
 
       def get_film_name(url)
-        if films.length == 0
-          puts "there are no film"
-          film = Api.get_specific_film(url)
-          @films << film
-          film.title
-        elsif film = Film.find_by_url(url)
-          puts "there is a film"
-          @films << film
-          film.title
-        else
-          puts "film does not exist and needs to be made"
-          film = Api.get_specific_film(url)
-          @films << film
-          film.title
+        if film = @films.find {|film| film.url == url}
+        puts "found film in films"
+        film.title
+      elsif film = Film.find_by_url(url)
+        puts "there is a film"
+        @films << film
+        film.title
+      else
+        puts "film does not exist and needs to be made"
+        film = Api.get_specific_film(url)
+        @films << film
+        film.title
         end
       end
     
