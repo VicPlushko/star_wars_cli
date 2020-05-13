@@ -147,10 +147,10 @@ class StarWarsController
     puts "Director: #{films.director}"
     puts "Producer: #{films.producer}"
     puts "Release Date: #{films.release_date}"
-    puts "Characters: #{films.characters}"
-    puts "Planets: #{films.planets}"
-    puts "Starships: #{films.starships}"
-    puts "Vehicles: #{films.vehicles}"
-    puts "Species: #{films.species}"
+    puts "Characters: #{films.get_character_names(films.characters_urls)}"
+    puts "Planets: #{films.get_planet_names(films.planets_urls)}"
+    puts "Starships: #{films.get_starship_names(films.starships_urls)}"
+    puts "Vehicles: #{films.get_vehicle_names(films.vehicles_urls)}"
+    puts "Species: #{films.get_species_names(films.species_urls)}"
   end
 end

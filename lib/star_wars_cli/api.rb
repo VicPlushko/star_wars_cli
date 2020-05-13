@@ -235,11 +235,11 @@ class Api
         director: film["director"],
         producer: film["producer"],
         release_date: film["release_date"],
-        characters: film["characters"],
-        planets: film["planets"],
-        starships: film["starships"],
-        vehicles: film["vehicles"],
-        species: film["species"],
+        characters_urls: film["characters"],
+        planets_urls: film["planets"],
+        starships_urls: film["starships"],
+        vehicles_urls: film["vehicles"],
+        species_urls: film["species"],
         url: film["url"],
       )
     end
@@ -255,11 +255,11 @@ class Api
       director: json["director"],
       producer: json["producer"],
       release_date: json["release_date"],
-      characters: json["characters"],
-      planets: json["planets"],
-      starships: json["starships"],
-      vehicles: json["vehicles"],
-      species: json["species"],
+      characters_urls: json["characters"],
+      planets_urls: json["planets"],
+      starships_urls: json["starships"],
+      vehicles_urls: json["vehicles"],
+      species_urls: json["species"],
       url: json["url"],
     )
   end
