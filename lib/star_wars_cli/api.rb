@@ -61,6 +61,7 @@ class Api
         language: specie["language"],
         planet_url: specie["homeworld"],
         people_urls: specie["people"],
+        films_urls: specie["films"],
         url: specie["url"],
       )
     end
@@ -80,7 +81,8 @@ class Api
       average_lifespan: json["average_lifespan"],
       language: json["language"],
       planet_url: json["homeworld"],
-      people_urls: specie["people"],
+      people_urls: json["people"],
+      films_urls: json["films"],
       url: json["url"],
     )
   end

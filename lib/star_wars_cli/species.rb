@@ -1,9 +1,9 @@
 class Species
-  attr_accessor :name, :classification, :designation, :average_height, :skin_colors, :hair_colors, :eye_colors, :average_lifespan, :language, :planet_url, :planet, :people_urls, :people, :url
+  attr_accessor :name, :classification, :designation, :average_height, :skin_colors, :hair_colors, :eye_colors, :average_lifespan, :language, :planet_url, :planet, :people_urls, :people, :films_urls, :films, :url
 
   @@all = []
 
-  def initialize(name:, classification:, designation:, average_height:, skin_colors:, hair_colors:, eye_colors:, average_lifespan:, language:, planet_url:, people_urls:, url:)
+  def initialize(name:, classification:, designation:, average_height:, skin_colors:, hair_colors:, eye_colors:, average_lifespan:, language:, planet_url:, people_urls:, films_urls:, url:)
     @name = name
     @classification = classification
     @designation = designation
@@ -17,6 +17,8 @@ class Species
     @planet = planet
     @people_urls = people_urls
     @people = []
+    @films_urls = films_urls
+    @films = []
     @url = url.sub "http:", "https:"
     @@all << self
   end
@@ -77,6 +79,36 @@ class Species
       names = []
       urls.each do |url|
         names << get_person_name(url)
+      end
+      names
+    end
+  end
+
+  def get_film_name(url)
+    if films.length == 0
+      puts "there are no film"
+      film = Api.get_specific_film(url)
+      @films << film
+      film.title
+    elsif film = Film.find_by_url(url)
+      puts "there is a film"
+      @films << film
+      film.title
+    else
+      puts "film does not exist and needs to be made"
+      film = Api.get_specific_film(url)
+      @films << film
+      film.title
+    end
+  end
+
+  def get_film_names(urls)
+    if urls.length == 0
+      "N/A"
+    else
+      names = []
+      urls.each do |url|
+        names << get_film_name(url)
       end
       names
     end

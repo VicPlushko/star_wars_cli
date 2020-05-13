@@ -83,6 +83,7 @@ class StarWarsController
     puts "Language: #{species.language}"
     puts "Homeworld: #{species.get_planet_name}"
     puts "People: #{species.get_people_names(species.people_urls)}"
+    puts "Films: #{species.get_film_names(species.films_urls)}"
   end
 
   def self.display_planets_selection(input)
