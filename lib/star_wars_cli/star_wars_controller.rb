@@ -117,6 +117,8 @@ class StarWarsController
     puts "Consumables: #{starship.consumables}"
     puts "Hyperdrive Rating: #{starship.hyperdrive_rating}"
     puts "Starship Class: #{starship.starship_class}"
+    puts "Pilots: #{starship.get_pilot_names(starship.pilots_urls)}"
+    puts "Films: #{starship.get_film_names(starship.films_urls)}"
   end
 
   def self.display_vehicles_selection(input)

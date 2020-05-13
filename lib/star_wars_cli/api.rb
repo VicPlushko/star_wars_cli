@@ -149,6 +149,8 @@ class Api
         consumables: starship["consumables"],
         hyperdrive_rating: starship["hyperdrive_rating"],
         starship_class: starship["starship_class"],
+        pilots_urls: starship["pilots"],
+        films_urls: starship["films"],
         url: starship["url"],
       )
     end
@@ -170,6 +172,8 @@ class Api
       consumables: json["consumables"],
       hyperdrive_rating: json["hyperdrive_rating"],
       starship_class: json["starship_class"],
+      pilots_urls: json["pilots"],
+      films_urls: json["films"],
       url: json["url"],
     )
   end
