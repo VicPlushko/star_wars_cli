@@ -35,14 +35,11 @@ class Planets
 
       def get_resident_name(url)
         if resident = @residents.find {|resident| resident.url == url}
-        puts "found resident in residents"
         resident.name
       elsif resident = Person.find_by_url(url)
-        puts "there is a resident"
         @residents << resident
         resident.name
       else
-        puts "resident does not exist and needs to be made"
         resident = Api.get_specific_people(url)
         @residents << resident
         resident.name
@@ -63,14 +60,11 @@ class Planets
 
       def get_film_name(url)
         if film = @films.find {|film| film.url == url}
-        puts "found film in films"
         film.title
       elsif film = Film.find_by_url(url)
-        puts "there is a film"
         @films << film
         film.title
       else
-        puts "film does not exist and needs to be made"
         film = Api.get_specific_film(url)
         @films << film
         film.title

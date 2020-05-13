@@ -40,15 +40,11 @@ class Person
 
   def get_planet_name
     if planet = @planet
-      puts "there is a planet associated"
       planet.name
     elsif planet = Planets.find_by_url(@planet_url)
-      puts "planet does exist"
       @planet = planet
       planet.name
     else
-      puts "planet doesnt exist"
-      puts "home world is #{@planet_url}"
       planet = Api.get_specific_planet(@planet_url)
       @planet = planet
       planet.name
@@ -57,14 +53,11 @@ class Person
 
   def get_starship_name(url)
     if starship = @starships.find {|starship| starship.url == url}
-        puts "found starship in starships"
         starship.name
       elsif starship = Starship.find_by_url(url)
-        puts "there is a starship"
         @starships << starship
         starship.name
       else
-        puts "starship does not exist and needs to be made"
         starship = Api.get_specific_starship(url)
         @starships << starship
         starship.name
@@ -85,14 +78,11 @@ class Person
 
   def get_vehicle_name(url)
     if vehicle = @vehicles.find {|vehicle| vehicle.url == url}
-        puts "found vehicle in vehicles"
         vehicle.name
       elsif vehicle = Vehicle.find_by_url(url)
-        puts "there is a vehicle"
         @vehicles << vehicle
         vehicle.name
       else
-        puts "vehicle does not exist and needs to be made"
         vehicle = Api.get_specific_vehicle(url)
         @vehicles << vehicle
         vehicle.name
@@ -113,14 +103,11 @@ class Person
 
   def get_film_name(url)
     if film = @films.find {|film| film.url == url}
-        puts "found film in films"
         film.title
       elsif film = Film.find_by_url(url)
-        puts "there is a film"
         @films << film
         film.title
       else
-        puts "film does not exist and needs to be made"
         film = Api.get_specific_film(url)
         @films << film
         film.title
@@ -141,14 +128,11 @@ class Person
 
   def get_specie_name(url)
     if specie = @species.find {|specie| specie.url == url}
-        puts "found specie in species"
         specie.name
       elsif specie = Species.find_by_url(url)
-        puts "there is a specie"
         @species << specie
         specie.name
       else
-        puts "specie does not exist and needs to be made"
         specie = Api.get_specific_species(url)
         @species << specie
         specie.name

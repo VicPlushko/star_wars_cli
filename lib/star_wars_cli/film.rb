@@ -38,14 +38,11 @@ class Film
 
       def get_character_name(url)
         if character = @characters.find {|character| character.url == url}
-        puts "found character in charcters"
         character.name
       elsif character = Person.find_by_url(url)
-        puts "there is a character"
         @characters << character
         character.name
       else
-        puts "character does not exist and needs to be made"
         character = Api.get_specific_people(url)
         @characters << character
         character.name
@@ -66,14 +63,11 @@ class Film
 
       def get_planet_name(url)
         if planet = @planets.find {|planet| planet.url == url}
-        puts "found planet in planets"
         planet.name
       elsif planet = Planets.find_by_url(url)
-        puts "there is a planet"
         @planets << planet
         planet.name
       else
-        puts "planet does not exist and needs to be made"
         planet = Api.get_specific_planet(url)
         @planets << planet
         planet.name
@@ -94,14 +88,11 @@ class Film
 
       def get_starship_name(url)
         if starship = @starships.find {|starship| starship.url == url}
-        puts "found starship in starships"
         starship.name
       elsif starship = Starship.find_by_url(url)
-        puts "there is a starship"
         @starships << starship
         starship.name
       else
-        puts "starship does not exist and needs to be made"
         starship = Api.get_specific_starship(url)
         @starships << starship
         starship.name
@@ -122,14 +113,11 @@ class Film
 
       def get_vehicle_name(url)
         if vehicle = @vehicles.find {|vehicle| vehicle.url == url}
-        puts "found vehicle in vehicles"
         vehicle.name
       elsif vehicle = Vehicle.find_by_url(url)
-        puts "there is a vehicle"
         @vehicles << vehicle
         vehicle.name
       else
-        puts "vehicle does not exist and needs to be made"
         vehicle = Api.get_specific_vehicle(url)
         @vehicles << vehicle
         vehicle.name
@@ -150,14 +138,11 @@ class Film
 
       def get_species_name(url)
         if specie = @species.find {|specie| specie.url == url}
-        puts "found specie in species"
         specie.name
       elsif specie = Species.find_by_url(url)
-        puts "there is a specie"
         @species << specie
         specie.name
       else
-        puts "specie does not exist and needs to be made"
         specie = Api.get_specific_species(url)
         @species << specie
         specie.name

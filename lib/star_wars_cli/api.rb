@@ -96,7 +96,6 @@ class Api
     response = Net::HTTP.get(URI(url))
     planets = JSON.parse(response)["results"]
     planets.each do |planet|
-      puts "json url value #{planet["url"]}"
       if !Planets.find_by_url(planet["url"])
         Planets.new(
           name: planet["name"],

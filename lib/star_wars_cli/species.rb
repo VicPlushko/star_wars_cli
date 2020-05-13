@@ -37,17 +37,13 @@ class Species
 
   def get_planet_name
     if planet = @planet
-      puts "there is a planet associated"
       planet.name
     elsif planet = Planets.find_by_url(@planet_url)
-      puts "planet does exist"
       @planet = planet
       planet.name
     elsif @planet_url == nil
       "n/a"
     else
-      puts "planet doesnt exist"
-      puts "home world is #{@planet_url}"
       planet = Api.get_specific_planet(@planet_url)
       @planet = planet
       planet.name
@@ -56,14 +52,11 @@ class Species
 
   def get_person_name(url)
     if person = @people.find {|person| person.url == url}
-        puts "found person in people"
         person.name
       elsif person = Person.find_by_url(url)
-        puts "there is a person"
         @people << person
         person.name
       else
-        puts "person does not exist and needs to be made"
         person = Api.get_specific_people(url)
         @people << person
         person.name
@@ -84,14 +77,11 @@ class Species
 
   def get_film_name(url)
     if film = @films.find {|film| film.url == url}
-        puts "found film in films"
         film.title
       elsif film = Film.find_by_url(url)
-        puts "there is a film"
         @films << film
         film.title
       else
-        puts "film does not exist and needs to be made"
         film = Api.get_specific_film(url)
         @films << film
         film.title
