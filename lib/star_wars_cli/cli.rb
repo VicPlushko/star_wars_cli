@@ -57,9 +57,7 @@ class Cli
   end
 
   def display_people_list
-    if Person.all.length == 0 # this is only a valid comparison when calling for first page
       Api.get_all_people
-    end
     while @input != "exit" && @input != "menu"
       StarWarsController.print_people(Person.all)
       @input = gets.strip
@@ -81,9 +79,7 @@ class Cli
   end
 
   def display_species_list
-    if Species.all.length == 0 # this is only a valid comparison when calling for first page
       Api.get_all_species
-    end
     while @input != "exit" && @input != "menu"
       StarWarsController.print_species(Species.all)
       @input = gets.strip.downcase
@@ -127,9 +123,7 @@ class Cli
   end
 
   def display_starships_list
-    if Starship.all.length == 0 # this is only a valid comparison when calling for first page
       Api.get_all_starships
-    end
     while @input != "exit" && @input != "menu"
       StarWarsController.print_starships(Starship.all)
       @input = gets.strip.downcase
@@ -151,9 +145,7 @@ class Cli
   end
 
   def display_vehicles_list
-    if Vehicle.all.length == 0 # this is only a valid comparison when calling for first page
       Api.get_all_vehicles
-    end
     while @input != "exit" && @input != "menu"
       StarWarsController.print_vehicles(Vehicle.all)
       @input = gets.strip.downcase
@@ -175,9 +167,7 @@ class Cli
   end
 
   def display_films_list
-    if Film.all.length == 0 # this is only a valid comparison when calling for first page
       Api.get_all_films
-    end
     while @input != "exit" && @input != "menu"
       StarWarsController.print_films(Film.all)
       @input = gets.strip.downcase
