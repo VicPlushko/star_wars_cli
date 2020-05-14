@@ -2,6 +2,7 @@ class StarWarsController
   def self.print_people(people)
     puts " "
     puts "Please select the number of a person that you would like to learn more about"
+    puts "Type 'next' to go to the next page"
     people.each.with_index(1) do |person, index|
       puts "#{index}. #{person.name}"
     end
@@ -11,6 +12,7 @@ class StarWarsController
   def self.print_species(species)
     puts " "
     puts "Please select the number of a species that you would like to learn more about"
+    puts "Type 'next' to go to the next page"
     species.each.with_index(1) do |specie, index|
       puts "#{index}. #{specie.name}"
     end
@@ -20,6 +22,7 @@ class StarWarsController
   def self.print_planets(planets)
     puts " "
     puts "Please select the number of a planet that you would like to learn more about"
+    puts "Type 'next' to go to the next page"
     planets.each.with_index(1) do |planet, index|
       puts "#{index}. #{planet.name}"
     end
@@ -29,6 +32,7 @@ class StarWarsController
   def self.print_starships(starships)
     puts " "
     puts "Please select the number of a starship that you would like to learn more about"
+    puts "Type 'next' to go to the next page"
     starships.each.with_index(1) do |starship, index|
       puts "#{index}. #{starship.name}"
     end
@@ -38,6 +42,7 @@ class StarWarsController
   def self.print_vehicles(vehicles)
     puts " "
     puts "Please select the number of a vehicle that you would like to learn more about"
+    puts "Type 'next' to go to the next page"
     vehicles.each.with_index(1) do |vehicle, index|
       puts "#{index}. #{vehicle.name}"
     end
@@ -47,6 +52,7 @@ class StarWarsController
   def self.print_films(films)
     puts " "
     puts "Please select the number of a film that you would like to learn more about"
+    puts "Type 'next' to go to the next page"
     films.each.with_index(1) do |film, index|
       puts "#{index}. #{film.title}"
     end

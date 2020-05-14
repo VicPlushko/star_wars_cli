@@ -1,7 +1,9 @@
 class Person
   attr_accessor :name, :height, :mass, :hair_color, :skin_color, :eye_color, :birth_year, :gender, :planet_url, :planet, :url, :starships_urls, :starships, :vehicles_urls, :vehicles, :films_urls, :films, :species_url, :species
-
+  
   @@all = []
+  @@current_page = 1
+  @@next_page = " "
 
   def initialize(name:, height:, mass:, hair_color:, skin_color:, eye_color:, birth_year:, gender:, planet_url:, url:, starships_urls:, vehicles_urls:, films_urls:, species_url:)
     @name = name
@@ -31,7 +33,21 @@ class Person
   end
 
   def self.validate_input?(input)
+    #update validate input to base on page number ex:0-9 10-19 
     input.to_i.between?(1, self.all.length)
+  end
+
+  def self.current_page
+    @@current_page
+  end
+
+  def self.next_page
+    @@next_page
+  end
+
+  def self.increment_page_number
+    @@current_page += 1
+    puts "Person current page = #{Person.current_page}"
   end
 
   def self.find_by_url(url)

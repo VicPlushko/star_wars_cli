@@ -59,8 +59,10 @@ class Cli
   def display_people_list
       Api.get_all_people
     while @input != "exit" && @input != "menu"
-      StarWarsController.print_people(Person.all)
-      @input = gets.strip
+      puts Person.current_page
+      #update print_people based on current page vs hard coded array
+      StarWarsController.print_people(Person.all[0..9])
+      @input = gets.strip.downcase
       if Person.validate_input?(@input)
         StarWarsController.display_people_selection(@input)
         prompt_user
@@ -69,6 +71,11 @@ class Cli
           prompt_user
           @input = gets.strip.downcase
         end
+      elsif @input == "next"
+        Person.next_page
+        puts Person.next_page
+        #make api call to get next page
+        puts "moving to the next page #{Person.current_page}"
       elsif @input == "exit"
         puts "Thank you for using my app and May The Force Be With You!!"
         exit
@@ -81,7 +88,7 @@ class Cli
   def display_species_list
       Api.get_all_species
     while @input != "exit" && @input != "menu"
-      StarWarsController.print_species(Species.all)
+      StarWarsController.print_species(Species.all[0..9])
       @input = gets.strip.downcase
       if Species.validate_input?(@input)
         StarWarsController.display_species_selection(@input)
@@ -103,7 +110,7 @@ class Cli
   def display_planets_list
       Api.get_all_planets
     while @input != "exit" && @input != "menu"
-      StarWarsController.print_planets(Planets.all)
+      StarWarsController.print_planets(Planets.all[0..9])
       @input = gets.strip.downcase
       if Planets.validate_input?(@input)
         StarWarsController.display_planets_selection(@input)
@@ -125,7 +132,7 @@ class Cli
   def display_starships_list
       Api.get_all_starships
     while @input != "exit" && @input != "menu"
-      StarWarsController.print_starships(Starship.all)
+      StarWarsController.print_starships(Starship.all[0..9])
       @input = gets.strip.downcase
       if Starship.validate_input?(@input)
         StarWarsController.display_starships_selection(@input)
@@ -147,7 +154,7 @@ class Cli
   def display_vehicles_list
       Api.get_all_vehicles
     while @input != "exit" && @input != "menu"
-      StarWarsController.print_vehicles(Vehicle.all)
+      StarWarsController.print_vehicles(Vehicle.all[0..9])
       @input = gets.strip.downcase
       if Vehicle.validate_input?(@input)
         StarWarsController.display_vehicles_selection(@input)
@@ -198,6 +205,7 @@ class Cli
   def menu_valid_input?(input)
     input.to_i.between?(1, 6)
   end
+
 end
 
 ##handles input FROM user and output TO user
