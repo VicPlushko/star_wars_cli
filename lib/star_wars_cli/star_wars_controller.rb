@@ -53,6 +53,9 @@ class StarWarsController
     if Starship.current_page > 1
       puts "Type 'previous' to go to the previous page"
     end
+    starships.each.with_index(Starship.get_offset + 1) do |starship, index|
+      puts "#{index}. #{starship.name}"
+    end
     puts " "
   end
 
@@ -152,8 +155,10 @@ class StarWarsController
     puts "Consumables: #{starship.consumables}"
     puts "Hyperdrive Rating: #{starship.hyperdrive_rating}"
     puts "Starship Class: #{starship.starship_class}"
-    puts "Pilots: #{starship.get_pilot_names(starship.pilots_urls)}"
-    puts "Films: #{starship.get_film_names(starship.films_urls)}"
+    pilots = starship.get_pilot_names(starship.pilots_urls)
+    puts "\rPilots: #{pilots}"
+    films = starship.get_film_names(starship.films_urls)
+    puts "\rFilms: #{films}"
   end
 
   def self.display_vehicles_selection(input)

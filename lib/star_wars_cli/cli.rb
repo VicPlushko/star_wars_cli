@@ -149,7 +149,8 @@ class Cli
   def display_starships_list
       Api.get_all_starships
     while @input != "exit" && @input != "menu"
-      StarWarsController.print_starships(Starship.all[0..9])
+      puts Starship.current_page
+      StarWarsController.print_starships(Starship.get_starships_for_page)
       @input = gets.strip.downcase
       if Starship.validate_input?(@input)
         StarWarsController.display_starships_selection(@input)
@@ -159,6 +160,13 @@ class Cli
           prompt_user
           @input = gets.strip.downcase
         end
+      elsif @input == "next" && Starship.next_page_url != nil
+        Starship.increment_page_number
+        Api.get_all_starships(Starship.next_page_url)
+        puts "moving to the next page #{Starship.current_page}"
+      elsif @input == "previous"  && Starship.current_page > 1
+        Starship.decrement_page_number
+        puts "moving to the previous page #{Starship.current_page}"
       elsif @input == "exit"
         puts "Thank you for using my app and May The Force Be With You!!"
         exit
