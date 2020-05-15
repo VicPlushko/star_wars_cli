@@ -36,6 +36,10 @@ class Person
     input.to_i.between?(1, self.get_limit)
   end
 
+  def self.find_by_url(url)
+    self.all.find { |x| x.url == url }
+  end
+
   def self.current_page
     @@current_page
   end
@@ -66,11 +70,6 @@ class Person
 
   def self.decrement_page_number
     @@current_page -= 1
-  end
-
-
-  def self.find_by_url(url)
-    self.all.find { |x| x.url == url }
   end
 
   def get_download_percentage(index, total)

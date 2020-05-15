@@ -47,9 +47,11 @@ class StarWarsController
   def self.print_starships(starships)
     puts " "
     puts "Please select the number of a starship that you would like to learn more about"
-    puts "Type 'next' to go to the next page"
-    starships.each.with_index(1) do |starship, index|
-      puts "#{index}. #{starship.name}"
+    if Starship.next_page_url != nil
+      puts "Type 'next' to go to the next page"
+    end
+    if Starship.current_page > 1
+      puts "Type 'previous' to go to the previous page"
     end
     puts " "
   end
@@ -57,8 +59,13 @@ class StarWarsController
   def self.print_vehicles(vehicles)
     puts " "
     puts "Please select the number of a vehicle that you would like to learn more about"
-    puts "Type 'next' to go to the next page"
-    vehicles.each.with_index(1) do |vehicle, index|
+    if Vehicle.next_page_url != nil
+      puts "Type 'next' to go to the next page"
+    end
+    if Vehicle.current_page > 1
+      puts "Type 'previous' to go to the previous page"
+    end
+    vehicles.each.with_index(Vehicle.get_offset + 1) do |vehicle, index|
       puts "#{index}. #{vehicle.name}"
     end
     puts " "
@@ -162,8 +169,10 @@ class StarWarsController
     puts "Cargo Capacity: #{vehicle.cargo_capacity}"
     puts "Consumables: #{vehicle.consumables}"
     puts "Vehicle Class: #{vehicle.vehicle_class}"
-    puts "Pilots: #{vehicle.get_pilot_names(vehicle.pilots_urls)}"
-    puts "Films: #{vehicle.get_film_names(vehicle.films_urls)}"
+    pilots = vehicle.get_pilot_names(vehicle.pilots_urls)
+    puts "\rPilots: #{pilots}"
+    films = vehicle.get_film_names(vehicle.films_urls)
+    puts "\rFilms: #{films}"
 
   end
 

@@ -134,10 +134,10 @@ class Api
     )
   end
 
-  def self.get_all_starships
-    url = "https://swapi.dev/api/starships/"
-    response = Net::HTTP.get(URI(url))
+  def self.get_all_starships(url = "https://swapi.dev/api/starships/")
+    response = Net::HTTP.get(URI(url.sub "http:", "https:"))
     starships = JSON.parse(response)["results"]
+    Starship.set_next_page_url(JSON.parse(response)["next"])
     starships.each do |starship|
       if !Starship.find_by_url(starship["url"])
         Starship.new(
@@ -183,10 +183,10 @@ class Api
     )
   end
 
-  def self.get_all_vehicles
-    url = "https://swapi.dev/api/vehicles/"
-    response = Net::HTTP.get(URI(url))
+  def self.get_all_vehicles(url = "https://swapi.dev/api/vehicles/")
+    response = Net::HTTP.get(URI(url.sub "http:", "https:"))
     vehicles = JSON.parse(response)["results"]
+    Vehicle.set_next_page_url(JSON.parse(response)["next"])
     vehicles.each do |vehicle|
       if !Vehicle.find_by_url(vehicle["url"])
         Vehicle.new(

@@ -28,7 +28,7 @@ class Planets
       end
     
       def self.validate_input?(input)
-        input.to_i.between?(1, self.all.length)
+        input.to_i.between?(1, self.get_limit)
       end
 
       def self.find_by_url(url)

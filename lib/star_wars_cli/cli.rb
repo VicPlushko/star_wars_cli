@@ -171,7 +171,8 @@ class Cli
   def display_vehicles_list
       Api.get_all_vehicles
     while @input != "exit" && @input != "menu"
-      StarWarsController.print_vehicles(Vehicle.all[0..9])
+      puts Vehicle.current_page
+      StarWarsController.print_vehicles(Vehicle.get_vehicles_for_page)
       @input = gets.strip.downcase
       if Vehicle.validate_input?(@input)
         StarWarsController.display_vehicles_selection(@input)
@@ -181,6 +182,13 @@ class Cli
           prompt_user
           @input = gets.strip.downcase
         end
+      elsif @input == "next" && Vehicle.next_page_url != nil
+        Vehicle.increment_page_number
+        Api.get_all_vehicles(Vehicle.next_page_url)
+        puts "moving to the next page #{Vehicle.current_page}"
+      elsif @input == "previous"  && Vehicle.current_page > 1
+        Vehicle.decrement_page_number
+        puts "moving to the previous page #{Vehicle.current_page}"
       elsif @input == "exit"
         puts "Thank you for using my app and May The Force Be With You!!"
         exit
