@@ -2,8 +2,13 @@ class StarWarsController
   def self.print_people(people)
     puts " "
     puts "Please select the number of a person that you would like to learn more about"
-    puts "Type 'next' to go to the next page"
-    people.each.with_index(1) do |person, index|
+    if Person.next_page != nil
+      puts "Type 'next' to go to the next page"
+    end
+    if Person.current_page > 1
+      puts "Type 'previous' to go to the previous page"
+    end
+    people.each.with_index(Person.get_offset + 1) do |person, index|
       puts "#{index}. #{person.name}"
     end
     puts " "
@@ -153,7 +158,9 @@ class StarWarsController
     puts "Director: #{films.director}"
     puts "Producer: #{films.producer}"
     puts "Release Date: #{films.release_date}"
-    puts "Characters: #{films.get_character_names(films.characters_urls)}"
+    characters = films.get_character_names(films.characters_urls)
+    puts "\rCharacters: #{characters}"
+
     puts "Planets: #{films.get_planet_names(films.planets_urls)}"
     puts "Starships: #{films.get_starship_names(films.starships_urls)}"
     puts "Vehicles: #{films.get_vehicle_names(films.vehicles_urls)}"

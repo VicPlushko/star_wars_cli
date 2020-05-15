@@ -34,7 +34,7 @@ class Person
 
   def self.validate_input?(input)
     #update validate input to base on page number ex:0-9 10-19 
-    input.to_i.between?(1, self.all.length)
+    input.to_i.between?(1, self.get_limit)
   end
 
   def self.current_page
@@ -45,10 +45,30 @@ class Person
     @@next_page
   end
 
+  def self.set_next_page(page)
+    @@next_page = page
+  end
+
+  def self.get_people_for_page
+    self.all[get_offset..get_limit]
+  end
+
+  def self.get_offset
+    @@current_page * 10 - 10
+  end
+
+  def self.get_limit 
+    @@current_page * 10 -1
+  end
+
   def self.increment_page_number
     @@current_page += 1
-    puts "Person current page = #{Person.current_page}"
   end
+
+  def self.decrement_page_number
+    @@current_page -= 1
+  end
+
 
   def self.find_by_url(url)
     self.all.find { |x| x.url == url }

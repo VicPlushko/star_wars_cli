@@ -1,8 +1,8 @@
 class Api
-  def self.get_all_people
-    url = "https://swapi.dev/api/people/"
-    response = Net::HTTP.get(URI(url))
+  def self.get_all_people(url = "https://swapi.dev/api/people/")
+    response = Net::HTTP.get(URI(url.sub "http:", "https:"))
     people = JSON.parse(response)["results"]
+    Person.set_next_page(JSON.parse(response)["next"])
     people.each do |person|
       if !Person.find_by_url(person["url"])
         Person.new(

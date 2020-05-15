@@ -61,7 +61,8 @@ class Cli
     while @input != "exit" && @input != "menu"
       puts Person.current_page
       #update print_people based on current page vs hard coded array
-      StarWarsController.print_people(Person.all[0..9])
+      #StarWarsController.print_people(Person.all[0..9])
+      StarWarsController.print_people(Person.get_people_for_page)
       @input = gets.strip.downcase
       if Person.validate_input?(@input)
         StarWarsController.display_people_selection(@input)
@@ -71,11 +72,13 @@ class Cli
           prompt_user
           @input = gets.strip.downcase
         end
-      elsif @input == "next"
-        Person.next_page
-        puts Person.next_page
-        #make api call to get next page
+      elsif @input == "next" && Person.next_page != nil
+        Person.increment_page_number
+        Api.get_all_people(Person.next_page)
         puts "moving to the next page #{Person.current_page}"
+      elsif @input == "previous"  && Person.current_page > 1
+        Person.decrement_page_number
+        puts "moving to the previous page #{Person.current_page}"
       elsif @input == "exit"
         puts "Thank you for using my app and May The Force Be With You!!"
         exit

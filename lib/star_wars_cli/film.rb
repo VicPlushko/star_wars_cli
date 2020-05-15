@@ -54,12 +54,19 @@ class Film
           "n/a"
         else
           names = []
-          urls.each do |url|
+          urls.each.with_index do |url, index|
+            printf("\rDownloading Characters: %d%%", get_download_percentage(index, urls.length))
             names << get_character_name(url)
           end
           names
         end
       end
+
+      def get_download_percentage(index, total)
+        (index.to_f/total.to_f*100).round()
+      end
+
+
 
       def get_planet_name(url)
         if planet = @planets.find {|planet| planet.url == url}
