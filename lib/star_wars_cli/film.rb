@@ -2,6 +2,8 @@ class Film
     attr_accessor :title, :episode_id, :opening_crawl, :director, :producer, :release_date, :characters_urls, :characters, :planets_urls, :planets, :starships_urls, :starships, :vehicles_urls, :vehicles, :species_urls, :species, :url
 
     @@all = []
+    @@current_page = 1
+    @@next_page_url = " "
 
     def initialize(title:, episode_id:, opening_crawl:, director:, producer:, release_date:, characters_urls:, planets_urls:, starships_urls:, vehicles_urls:, species_urls:, url:)
         @title = title
@@ -29,11 +31,43 @@ class Film
     end
 
     def self.validate_input?(input)
-        input.to_i.between?(1, self.all.length)
+        input.to_i.between?(1, self.get_limit)
       end
 
       def self.find_by_url(url)
         self.all.find {|x| x.url == url}
+      end
+
+      def self.current_page
+        @@current_page
+      end
+    
+      def self.next_page_url
+        @@next_page_url
+      end
+    
+      def self.set_next_page_url(page)
+        @@next_page_url = page
+      end
+    
+      def self.get_films_for_page
+        self.all[get_offset..get_limit]
+      end
+    
+      def self.get_offset
+        @@current_page * 10 - 10
+      end
+    
+      def self.get_limit 
+        @@current_page * 10 -1
+      end
+    
+      def self.increment_page_number
+        @@current_page += 1
+      end
+    
+      def self.decrement_page_number
+        @@current_page -= 1
       end
 
       def get_download_percentage(index, total)
@@ -84,7 +118,8 @@ class Film
           "n/a"
         else
           names = []
-          urls.each do |url|
+          urls.each.with_index do |url, index|
+            printf("\rDownloading Planets: %d%%", get_download_percentage(index, urls.length))
             names << get_planet_name(url)
           end
           names
@@ -109,7 +144,8 @@ class Film
           "n/a"
         else
           names = []
-          urls.each do |url|
+          urls.each.with_index do |url, index|
+            printf("\rDownloading Starships: %d%%", get_download_percentage(index, urls.length))
             names << get_starship_name(url)
           end
           names
@@ -134,7 +170,8 @@ class Film
           "n/a"
         else
           names = []
-          urls.each do |url|
+          urls.each.with_index do |url, index|
+            printf("\rDownloading Vehicles: %d%%", get_download_percentage(index, urls.length))
             names << get_vehicle_name(url)
           end
           names
@@ -159,7 +196,8 @@ class Film
           "n/a"
         else
           names = []
-          urls.each do |url|
+          urls.each.with_index do |url, index|
+            printf("\rDownloading Species: %d%%", get_download_percentage(index, urls.length))
             names << get_species_name(url)
           end
           names

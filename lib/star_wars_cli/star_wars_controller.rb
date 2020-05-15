@@ -77,8 +77,13 @@ class StarWarsController
   def self.print_films(films)
     puts " "
     puts "Please select the number of a film that you would like to learn more about"
-    puts "Type 'next' to go to the next page"
-    films.each.with_index(1) do |film, index|
+    if Film.next_page_url != nil
+      puts "Type 'next' to go to the next page"
+    end
+    if Film.current_page > 1
+      puts "Type 'previous' to go to the previous page"
+    end
+    films.each.with_index(Film.get_offset + 1) do |film, index|
       puts "#{index}. #{film.title}"
     end
     puts " "
@@ -186,14 +191,25 @@ class StarWarsController
     puts "Title: #{films.title}"
     puts "Epsisode Number: #{films.episode_id}"
     puts "Opening Crawl: #{films.opening_crawl}"
+    puts " "
     puts "Director: #{films.director}"
     puts "Producer: #{films.producer}"
     puts "Release Date: #{films.release_date}"
+    puts " "
     characters = films.get_character_names(films.characters_urls)
     puts "\rCharacters: #{characters}"
-    puts "Planets: #{films.get_planet_names(films.planets_urls)}"
-    puts "Starships: #{films.get_starship_names(films.starships_urls)}"
-    puts "Vehicles: #{films.get_vehicle_names(films.vehicles_urls)}"
-    puts "Species: #{films.get_species_names(films.species_urls)}"
+    puts " "
+    planets = films.get_planet_names(films.planets_urls)
+    puts "\rPlanets: #{planets}"
+    puts " "
+    starships = films.get_starship_names(films.starships_urls)
+    puts "\rStarships: #{starships}"
+    puts " "
+    vehicles = films.get_vehicle_names(films.vehicles_urls)
+    puts "\rVehicles: #{vehicles}"
+    puts " "
+    species = films.get_species_names(films.species_urls)
+    puts "\rSpecies: #{species}"
+    puts " "
   end
 end

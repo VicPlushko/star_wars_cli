@@ -185,7 +185,8 @@ class Person
       "n/a"
     else
       names = []
-      urls.each do |url|
+      urls.each.with_index do |url, index|
+        printf("\rDownloading Species: %d%%", get_download_percentage(index, urls.length))
         names << get_specie_name(url)
       end
       names

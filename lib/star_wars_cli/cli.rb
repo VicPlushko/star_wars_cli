@@ -209,7 +209,8 @@ class Cli
   def display_films_list
       Api.get_all_films
     while @input != "exit" && @input != "menu"
-      StarWarsController.print_films(Film.all)
+      puts Vehicle.current_page
+      StarWarsController.print_films(Film.get_films_for_page)
       @input = gets.strip.downcase
       if Film.validate_input?(@input)
         StarWarsController.display_film_selection(@input)
@@ -219,6 +220,13 @@ class Cli
           prompt_user
           @input = gets.strip.downcase
         end
+      elsif @input == "next" && Film.next_page_url != nil
+        Film.increment_page_number
+        Api.get_all_films(Film.next_page_url)
+        puts "moving to the next page #{Film.current_page}"
+      elsif @input == "previous"  && Film.current_page > 1
+        Film.decrement_page_number
+        puts "moving to the previous page #{Film.current_page}"
       elsif @input == "exit"
         puts "Thank you for using my app and May The Force Be With You!!"
         exit

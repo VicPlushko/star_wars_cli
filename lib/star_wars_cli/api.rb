@@ -230,10 +230,10 @@ class Api
     )
   end
 
-  def self.get_all_films
-    url = "https://swapi.dev/api/films/"
-    response = Net::HTTP.get(URI(url))
+  def self.get_all_films(url = "https://swapi.dev/api/films/")
+    response = Net::HTTP.get(URI(url.sub "http:", "https:"))
     films = JSON.parse(response)["results"]
+    Film.set_next_page_url(JSON.parse(response)["next"])
     films.each do |film|
       if !Film.find_by_url(film["url"])
         Film.new(
