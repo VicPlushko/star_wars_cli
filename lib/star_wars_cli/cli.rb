@@ -60,8 +60,6 @@ class Cli
       Api.get_all_people
     while @input != "exit" && @input != "menu"
       puts Person.current_page
-      #update print_people based on current page vs hard coded array
-      #StarWarsController.print_people(Person.all[0..9])
       StarWarsController.print_people(Person.get_people_for_page)
       @input = gets.strip.downcase
       if Person.validate_input?(@input)
@@ -72,9 +70,9 @@ class Cli
           prompt_user
           @input = gets.strip.downcase
         end
-      elsif @input == "next" && Person.next_page != nil
+      elsif @input == "next" && Person.next_page_url != nil
         Person.increment_page_number
-        Api.get_all_people(Person.next_page)
+        Api.get_all_people(Person.next_page_url)
         puts "moving to the next page #{Person.current_page}"
       elsif @input == "previous"  && Person.current_page > 1
         Person.decrement_page_number
@@ -91,7 +89,8 @@ class Cli
   def display_species_list
       Api.get_all_species
     while @input != "exit" && @input != "menu"
-      StarWarsController.print_species(Species.all[0..9])
+      puts Species.current_page
+      StarWarsController.print_species(Species.get_species_for_page)
       @input = gets.strip.downcase
       if Species.validate_input?(@input)
         StarWarsController.display_species_selection(@input)
@@ -101,6 +100,13 @@ class Cli
           prompt_user
           @input = gets.strip.downcase
         end
+      elsif @input == "next" && Species.next_page_url != nil
+        Species.increment_page_number
+        Api.get_all_species(Species.next_page_url)
+        puts "moving to the next page #{Species.current_page}"
+      elsif @input == "previous"  && Species.current_page > 1
+        Species.decrement_page_number
+        puts "moving to the previous page #{Species.current_page}"
       elsif @input == "exit"
         puts "Thank you for using my app and May The Force Be With You!!"
         exit
@@ -113,7 +119,8 @@ class Cli
   def display_planets_list
       Api.get_all_planets
     while @input != "exit" && @input != "menu"
-      StarWarsController.print_planets(Planets.all[0..9])
+      puts Planets.current_page
+      StarWarsController.print_planets(Planets.get_planets_for_page)
       @input = gets.strip.downcase
       if Planets.validate_input?(@input)
         StarWarsController.display_planets_selection(@input)
@@ -123,6 +130,13 @@ class Cli
           prompt_user
           @input = gets.strip.downcase
         end
+      elsif @input == "next" && Planets.next_page_url != nil
+        Planets.increment_page_number
+        Api.get_all_planets(Planets.next_page_url)
+        puts "moving to the next page #{Planets.current_page}"
+      elsif @input == "previous"  && Planets.current_page > 1
+        Planets.decrement_page_number
+        puts "moving to the previous page #{Planets.current_page}"
       elsif @input == "exit"
         puts "Thank you for using my app and May The Force Be With You!!"
         exit

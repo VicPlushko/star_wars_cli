@@ -2,7 +2,7 @@ class StarWarsController
   def self.print_people(people)
     puts " "
     puts "Please select the number of a person that you would like to learn more about"
-    if Person.next_page != nil
+    if Person.next_page_url != nil
       puts "Type 'next' to go to the next page"
     end
     if Person.current_page > 1
@@ -17,8 +17,13 @@ class StarWarsController
   def self.print_species(species)
     puts " "
     puts "Please select the number of a species that you would like to learn more about"
-    puts "Type 'next' to go to the next page"
-    species.each.with_index(1) do |specie, index|
+    if Species.next_page_url != nil
+      puts "Type 'next' to go to the next page"
+    end
+    if Species.current_page > 1
+      puts "Type 'previous' to go to the previous page"
+    end
+    species.each.with_index(Species.get_offset + 1) do |specie, index|
       puts "#{index}. #{specie.name}"
     end
     puts " "
@@ -27,8 +32,13 @@ class StarWarsController
   def self.print_planets(planets)
     puts " "
     puts "Please select the number of a planet that you would like to learn more about"
-    puts "Type 'next' to go to the next page"
-    planets.each.with_index(1) do |planet, index|
+    if Planets.next_page_url != nil
+      puts "Type 'next' to go to the next page"
+    end
+    if Planets.current_page > 1
+      puts "Type 'previous' to go to the previous page"
+    end
+    planets.each.with_index(Planets.get_offset + 1) do |planet, index|
       puts "#{index}. #{planet.name}"
     end
     puts " "
@@ -74,11 +84,15 @@ class StarWarsController
     puts "Hair Color: #{person.hair_color}"
     puts "Eye Color: #{person.eye_color}"
     puts "Skin Color: #{person.skin_color}"
-    puts "Species: #{person.get_specie_names(person.species_url)}"
+    species = person.get_specie_names(person.species_url)
+    puts "\rSpecies: #{species}"
     puts "Homeworld: #{person.get_planet_name}"
-    puts "Starships: #{person.get_starship_names(person.starships_urls)}"
-    puts "Vehicles: #{person.get_vehicle_names(person.vehicles_urls)}"
-    puts "Films: #{person.get_film_names(person.films_urls)}"
+    starships = person.get_starship_names(person.starships_urls)
+    puts "\rStarships: #{starships}"
+    vehicles = person.get_vehicle_names(person.vehicles_urls)
+    puts "\rVehicles: #{vehicles}"
+    films = person.get_film_names(person.films_urls)
+    puts "\rFilms: #{films}"
   end
 
   def self.display_species_selection(input)
@@ -93,8 +107,10 @@ class StarWarsController
     puts "Average Lifespan: #{species.average_lifespan}"
     puts "Language: #{species.language}"
     puts "Homeworld: #{species.get_planet_name}"
-    puts "People: #{species.get_people_names(species.people_urls)}"
-    puts "Films: #{species.get_film_names(species.films_urls)}"
+    person = species.get_people_names(species.people_urls)
+    puts "\rPeople: #{person}"
+    films = species.get_film_names(species.films_urls)
+    puts "\rFilms: #{films}"
   end
 
   def self.display_planets_selection(input)
@@ -108,9 +124,10 @@ class StarWarsController
     puts "Terrain: #{planets.terrain}"
     puts "Surface Water: #{planets.surface_water}"
     puts "Population: #{planets.population}"
-    puts "URL: #{planets.url}"
-    puts "Residents: #{planets.get_resident_names(planets.residents_urls)}"
-    puts "Films: #{planets.get_film_names(planets.films_urls)}"
+    residents = planets.get_resident_names(planets.residents_urls)
+    puts "\rResidents: #{residents}"
+    films = planets.get_film_names(planets.films_urls)
+    puts "\rFilms: #{films}"
 
   end
 
@@ -160,7 +177,6 @@ class StarWarsController
     puts "Release Date: #{films.release_date}"
     characters = films.get_character_names(films.characters_urls)
     puts "\rCharacters: #{characters}"
-
     puts "Planets: #{films.get_planet_names(films.planets_urls)}"
     puts "Starships: #{films.get_starship_names(films.starships_urls)}"
     puts "Vehicles: #{films.get_vehicle_names(films.vehicles_urls)}"

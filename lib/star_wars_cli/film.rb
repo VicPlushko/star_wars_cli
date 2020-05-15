@@ -36,6 +36,10 @@ class Film
         self.all.find {|x| x.url == url}
       end
 
+      def get_download_percentage(index, total)
+        (index.to_f/total.to_f*100).round()
+      end
+
       def get_character_name(url)
         if character = @characters.find {|character| character.url == url}
         character.name
@@ -61,12 +65,6 @@ class Film
           names
         end
       end
-
-      def get_download_percentage(index, total)
-        (index.to_f/total.to_f*100).round()
-      end
-
-
 
       def get_planet_name(url)
         if planet = @planets.find {|planet| planet.url == url}

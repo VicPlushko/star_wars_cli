@@ -3,7 +3,7 @@ class Person
   
   @@all = []
   @@current_page = 1
-  @@next_page = " "
+  @@next_page_url = " "
 
   def initialize(name:, height:, mass:, hair_color:, skin_color:, eye_color:, birth_year:, gender:, planet_url:, url:, starships_urls:, vehicles_urls:, films_urls:, species_url:)
     @name = name
@@ -33,7 +33,6 @@ class Person
   end
 
   def self.validate_input?(input)
-    #update validate input to base on page number ex:0-9 10-19 
     input.to_i.between?(1, self.get_limit)
   end
 
@@ -41,12 +40,12 @@ class Person
     @@current_page
   end
 
-  def self.next_page
-    @@next_page
+  def self.next_page_url
+    @@next_page_url
   end
 
-  def self.set_next_page(page)
-    @@next_page = page
+  def self.set_next_page_url(page)
+    @@next_page_url = page
   end
 
   def self.get_people_for_page
@@ -72,6 +71,10 @@ class Person
 
   def self.find_by_url(url)
     self.all.find { |x| x.url == url }
+  end
+
+  def get_download_percentage(index, total)
+    (index.to_f/total.to_f*100).round()
   end
 
   def get_planet_name
@@ -105,7 +108,8 @@ class Person
       "n/a"
     else
       names = []
-      urls.each do |url|
+      urls.each.with_index do |url, index|
+        printf("\rDownloading Starships: %d%%", get_download_percentage(index, urls.length))
         names << get_starship_name(url)
       end
       names
@@ -130,7 +134,8 @@ class Person
       "n/a"
     else
       names = []
-      urls.each do |url|
+      urls.each.with_index do |url, index|
+        printf("\rDownloading Vehicles: %d%%", get_download_percentage(index, urls.length))
         names << get_vehicle_name(url)
       end
       names
@@ -155,7 +160,8 @@ class Person
       "n/a"
     else
       names = []
-      urls.each do |url|
+      urls.each.with_index do |url, index|
+        printf("\rDownloading Films: %d%%", get_download_percentage(index, urls.length))
         names << get_film_name(url)
       end
       names

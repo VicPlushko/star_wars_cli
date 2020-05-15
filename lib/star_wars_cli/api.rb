@@ -2,7 +2,7 @@ class Api
   def self.get_all_people(url = "https://swapi.dev/api/people/")
     response = Net::HTTP.get(URI(url.sub "http:", "https:"))
     people = JSON.parse(response)["results"]
-    Person.set_next_page(JSON.parse(response)["next"])
+    Person.set_next_page_url(JSON.parse(response)["next"])
     people.each do |person|
       if !Person.find_by_url(person["url"])
         Person.new(
@@ -46,10 +46,10 @@ class Api
     )
   end
 
-  def self.get_all_species
-    url = "https://swapi.dev/api/species/"
-    response = Net::HTTP.get(URI(url))
+  def self.get_all_species(url = "https://swapi.dev/api/species/")
+    response = Net::HTTP.get(URI(url.sub "http:", "https:"))
     species = JSON.parse(response)["results"]
+    Species.set_next_page_url(JSON.parse(response)["next"])
     species.each do |specie|
       if !Species.find_by_url(specie["url"])
         Species.new(
@@ -91,10 +91,10 @@ class Api
     )
   end
 
-  def self.get_all_planets
-    url = "https://swapi.dev/api/planets/"
-    response = Net::HTTP.get(URI(url))
+  def self.get_all_planets(url = "https://swapi.dev/api/planets/")
+    response = Net::HTTP.get(URI(url.sub "http:", "https:"))
     planets = JSON.parse(response)["results"]
+    Planets.set_next_page_url(JSON.parse(response)["next"])
     planets.each do |planet|
       if !Planets.find_by_url(planet["url"])
         Planets.new(

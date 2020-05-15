@@ -2,6 +2,8 @@ class Planets
     attr_accessor :name, :rotation_period, :orbital_period, :diameter, :climate, :gravity, :terrain, :surface_water, :population, :url, :residents_urls, :residents, :films_urls, :films, :species
 
     @@all = []
+    @@current_page = 1
+    @@next_page_url = " "
 
     def initialize(name:, rotation_period:, orbital_period:, diameter:, climate:, gravity:, terrain:, surface_water:, population:, url:, residents_urls:, films_urls:)
         @name = name
@@ -33,6 +35,42 @@ class Planets
         self.all.find {|x| x.url == url}
       end
 
+      def self.current_page
+        @@current_page
+      end
+    
+      def self.next_page_url
+        @@next_page_url
+      end
+    
+      def self.set_next_page_url(page)
+        @@next_page_url = page
+      end
+    
+      def self.get_planets_for_page
+        self.all[get_offset..get_limit]
+      end
+    
+      def self.get_offset
+        @@current_page * 10 - 10
+      end
+    
+      def self.get_limit 
+        @@current_page * 10 -1
+      end
+    
+      def self.increment_page_number
+        @@current_page += 1
+      end
+    
+      def self.decrement_page_number
+        @@current_page -= 1
+      end
+    
+      def get_download_percentage(index, total)
+        (index.to_f/total.to_f*100).round()
+      end
+
       def get_resident_name(url)
         if resident = @residents.find {|resident| resident.url == url}
         resident.name
@@ -51,7 +89,8 @@ class Planets
           "n/a"
         else
           names = []
-          urls.each do |url|
+          urls.each.with_index do |url, index|
+            printf("\rDownloading Residents: %d%%", get_download_percentage(index, urls.length))
             names << get_resident_name(url)
           end
           names
@@ -76,7 +115,8 @@ class Planets
           "n/a"
         else
           names = []
-          urls.each do |url|
+          urls.each.with_index do |url, index|
+            printf("\rDownloading Films: %d%%", get_download_percentage(index, urls.length))
             names << get_film_name(url)
           end
           names

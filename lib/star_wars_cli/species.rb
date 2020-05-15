@@ -2,6 +2,8 @@ class Species
   attr_accessor :name, :classification, :designation, :average_height, :skin_colors, :hair_colors, :eye_colors, :average_lifespan, :language, :planet_url, :planet, :people_urls, :people, :films_urls, :films, :url
 
   @@all = []
+  @@current_page = 1
+  @@next_page_url = " "
 
   def initialize(name:, classification:, designation:, average_height:, skin_colors:, hair_colors:, eye_colors:, average_lifespan:, language:, planet_url:, people_urls:, films_urls:, url:)
     @name = name
@@ -28,11 +30,47 @@ class Species
   end
 
   def self.validate_input?(input)
-    input.to_i.between?(1, self.all.length)
+    input.to_i.between?(1, self.get_limit)
   end
 
   def self.find_by_url(url)
     self.all.find {|x| x.url == url}
+  end
+
+  def self.current_page
+    @@current_page
+  end
+
+  def self.next_page_url
+    @@next_page_url
+  end
+
+  def self.set_next_page_url(page)
+    @@next_page_url = page
+  end
+
+  def self.get_species_for_page
+    self.all[get_offset..get_limit]
+  end
+
+  def self.get_offset
+    @@current_page * 10 - 10
+  end
+
+  def self.get_limit 
+    @@current_page * 10 -1
+  end
+
+  def self.increment_page_number
+    @@current_page += 1
+  end
+
+  def self.decrement_page_number
+    @@current_page -= 1
+  end
+
+  def get_download_percentage(index, total)
+    (index.to_f/total.to_f*100).round()
   end
 
   def get_planet_name
@@ -68,7 +106,8 @@ class Species
       "n/a"
     else
       names = []
-      urls.each do |url|
+      urls.each.with_index do |url, index|
+        printf("\rDownloading People: %d%%", get_download_percentage(index, urls.length))
         names << get_person_name(url)
       end
       names
@@ -93,7 +132,8 @@ class Species
       "n/a"
     else
       names = []
-      urls.each do |url|
+      urls.each.with_index do |url, index|
+        printf("\rDownloading Films: %d%%", get_download_percentage(index, urls.length))
         names << get_film_name(url)
       end
       names
