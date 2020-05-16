@@ -1,6 +1,7 @@
 class Species
   extend StarWarsModule::ClassMethods
   include StarWarsModule::InstanceMethods
+  include GetFilm
   attr_accessor :name, :classification, :designation, :average_height, :skin_colors, :hair_colors, :eye_colors, :average_lifespan, :language, :planet_url, :planet, :people_urls, :people, :films_urls, :films, :url
 
   @@all = []
@@ -42,7 +43,7 @@ class Species
       @planet = planet
       planet.name
     elsif @planet_url == nil
-      "n/a"
+      ["n/a"]
     else
       planet = Api.get_specific_planet(@planet_url)
       @planet = planet
@@ -65,38 +66,12 @@ class Species
 
   def get_people_names(urls)
     if urls.length == 0
-      "n/a"
+      ["n/a"]
     else
       names = []
       urls.each.with_index do |url, index|
         printf("\rDownloading People: %d%%", get_download_percentage(index, urls.length))
         names << get_person_name(url)
-      end
-      names
-    end
-  end
-
-  def get_film_name(url)
-    if film = @films.find { |film| film.url == url }
-      film.title
-    elsif film = Film.find_by_url(url)
-      @films << film
-      film.title
-    else
-      film = Api.get_specific_film(url)
-      @films << film
-      film.title
-    end
-  end
-
-  def get_film_names(urls)
-    if urls.length == 0
-      "n/a"
-    else
-      names = []
-      urls.each.with_index do |url, index|
-        printf("\rDownloading Films: %d%%", get_download_percentage(index, urls.length))
-        names << get_film_name(url)
       end
       names
     end

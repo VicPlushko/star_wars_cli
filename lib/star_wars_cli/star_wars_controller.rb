@@ -89,6 +89,10 @@ class StarWarsController
     puts " "
   end
 
+  def self.clear_and_format(title, array)
+    "\r\033[K" + title + ": " + array.join(", \n\t")
+  end
+
   def self.display_people_selection(input)
     person = Person.all[input.to_i - 1]
     puts "Name: #{person.name}"
@@ -99,16 +103,17 @@ class StarWarsController
     puts "Hair Color: #{person.hair_color}"
     puts "Eye Color: #{person.eye_color}"
     puts "Skin Color: #{person.skin_color}"
-    species = person.get_specie_names(person.species_url)
-    puts "\rSpecies: #{species}"
+    puts clear_and_format("Species", person.get_specie_names(person.species_url))
     puts "Homeworld: #{person.get_planet_name}"
-    starships = person.get_starship_names(person.starships_urls)
-    puts "\rStarships: #{starships}"
-    vehicles = person.get_vehicle_names(person.vehicles_urls)
-    puts "\rVehicles: #{vehicles}"
-    films = person.get_film_names(person.films_urls)
-    puts "\rFilms: #{films}"
+    puts " "
+    puts clear_and_format("Starships", person.get_starship_names(person.starships_urls))
+    puts " "
+    puts clear_and_format("Vehicles", person.get_vehicle_names(person.vehicles_urls))
+    puts " "
+    puts clear_and_format("Films", person.get_film_names(person.films_urls))
   end
+
+ 
 
   def self.display_species_selection(input)
     species = Species.all[input.to_i - 1]
@@ -122,10 +127,10 @@ class StarWarsController
     puts "Average Lifespan: #{species.average_lifespan}"
     puts "Language: #{species.language}"
     puts "Homeworld: #{species.get_planet_name}"
-    person = species.get_people_names(species.people_urls)
-    puts "\rPeople: #{person}"
-    films = species.get_film_names(species.films_urls)
-    puts "\rFilms: #{films}"
+    puts " "
+    puts clear_and_format("People", species.get_people_names(species.people_urls))
+    puts " "
+    puts clear_and_format("Films", species.get_film_names(species.films_urls))
   end
 
   def self.display_planets_selection(input)
@@ -139,11 +144,10 @@ class StarWarsController
     puts "Terrain: #{planets.terrain}"
     puts "Surface Water: #{planets.surface_water}"
     puts "Population: #{planets.population}"
-    residents = planets.get_resident_names(planets.residents_urls)
-    puts "\rResidents: #{residents}"
-    films = planets.get_film_names(planets.films_urls)
-    puts "\rFilms: #{films}"
-
+    puts " "
+    puts clear_and_format("Residents", planets.get_resident_names(planets.residents_urls))
+    puts " "
+    puts clear_and_format("Films", planets.get_film_names(planets.films_urls))
   end
 
   def self.display_starships_selection(input)
@@ -160,10 +164,10 @@ class StarWarsController
     puts "Consumables: #{starship.consumables}"
     puts "Hyperdrive Rating: #{starship.hyperdrive_rating}"
     puts "Starship Class: #{starship.starship_class}"
-    pilots = starship.get_pilot_names(starship.pilots_urls)
-    puts "\rPilots: #{pilots}"
-    films = starship.get_film_names(starship.films_urls)
-    puts "\rFilms: #{films}"
+    puts " "
+    puts clear_and_format("Pilots", starship.get_pilot_names(starship.pilots_urls))
+    puts " "
+    puts clear_and_format("Films", starship.get_film_names(starship.films_urls))
   end
 
   def self.display_vehicles_selection(input)
@@ -179,11 +183,10 @@ class StarWarsController
     puts "Cargo Capacity: #{vehicle.cargo_capacity}"
     puts "Consumables: #{vehicle.consumables}"
     puts "Vehicle Class: #{vehicle.vehicle_class}"
-    pilots = vehicle.get_pilot_names(vehicle.pilots_urls)
-    puts "\rPilots: #{pilots}"
-    films = vehicle.get_film_names(vehicle.films_urls)
-    puts "\rFilms: #{films}"
-
+    puts " "
+    puts clear_and_format("Pilots", vehicle.get_pilot_names(vehicle.pilots_urls))
+    puts " "
+    puts clear_and_format("Films", vehicle.get_film_names(vehicle.films_urls))
   end
 
   def self.display_film_selection(input)
@@ -196,20 +199,14 @@ class StarWarsController
     puts "Producer: #{films.producer}"
     puts "Release Date: #{films.release_date}"
     puts " "
-    characters = films.get_character_names(films.characters_urls)
-    puts "\rCharacters: #{characters}"
+    puts clear_and_format("Characters", films.get_character_names(films.characters_urls))
     puts " "
-    planets = films.get_planet_names(films.planets_urls)
-    puts "\rPlanets: #{planets}"
+    puts clear_and_format("Planets", films.get_planet_names(films.planets_urls))
     puts " "
-    starships = films.get_starship_names(films.starships_urls)
-    puts "\rStarships: #{starships}"
+    puts clear_and_format("Starships", films.get_starship_names(films.starships_urls))
     puts " "
-    vehicles = films.get_vehicle_names(films.vehicles_urls)
-    puts "\rVehicles: #{vehicles}"
+    puts clear_and_format("Vehicles", films.get_vehicle_names(films.vehicles_urls))
     puts " "
-    species = films.get_species_names(films.species_urls)
-    puts "\rSpecies: #{species}"
-    puts " "
+    puts clear_and_format("Species", films.get_species_names(films.species_urls))
   end
 end

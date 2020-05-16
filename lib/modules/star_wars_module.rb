@@ -5,7 +5,7 @@ module StarWarsModule
     @@next_page_url = " "
     
     def validate_input?(input)
-      input.to_i.between?(1, self.get_limit)
+      input.to_i.between?(1, self.get_limit + 1)
     end
 
     def find_by_url(url)

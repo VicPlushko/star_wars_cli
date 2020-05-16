@@ -1,6 +1,8 @@
 class Person
   extend StarWarsModule::ClassMethods
   include StarWarsModule::InstanceMethods
+  include GetFilm
+  include GetVehiclesAndStarships
   attr_accessor :name, :height, :mass, :hair_color, :skin_color, :eye_color, :birth_year, :gender, :planet_url, :planet, :url, :starships_urls, :starships, :vehicles_urls, :vehicles, :films_urls, :films, :species_url, :species
 
   @@all = []
@@ -51,84 +53,6 @@ class Person
     end
   end
 
-  def get_starship_name(url)
-    if starship = @starships.find { |starship| starship.url == url }
-      starship.name
-    elsif starship = Starship.find_by_url(url)
-      @starships << starship
-      starship.name
-    else
-      starship = Api.get_specific_starship(url)
-      @starships << starship
-      starship.name
-    end
-  end
-
-  def get_starship_names(urls)
-    if urls.length == 0
-      "n/a"
-    else
-      names = []
-      urls.each.with_index do |url, index|
-        printf("\rDownloading Starships: %d%%", get_download_percentage(index, urls.length))
-        names << get_starship_name(url)
-      end
-      names
-    end
-  end
-
-  def get_vehicle_name(url)
-    if vehicle = @vehicles.find { |vehicle| vehicle.url == url }
-      vehicle.name
-    elsif vehicle = Vehicle.find_by_url(url)
-      @vehicles << vehicle
-      vehicle.name
-    else
-      vehicle = Api.get_specific_vehicle(url)
-      @vehicles << vehicle
-      vehicle.name
-    end
-  end
-
-  def get_vehicle_names(urls)
-    if urls.length == 0
-      "n/a"
-    else
-      names = []
-      urls.each.with_index do |url, index|
-        printf("\rDownloading Vehicles: %d%%", get_download_percentage(index, urls.length))
-        names << get_vehicle_name(url)
-      end
-      names
-    end
-  end
-
-  def get_film_name(url)
-    if film = @films.find { |film| film.url == url }
-      film.title
-    elsif film = Film.find_by_url(url)
-      @films << film
-      film.title
-    else
-      film = Api.get_specific_film(url)
-      @films << film
-      film.title
-    end
-  end
-
-  def get_film_names(urls)
-    if urls.length == 0
-      "n/a"
-    else
-      names = []
-      urls.each.with_index do |url, index|
-        printf("\rDownloading Films: %d%%", get_download_percentage(index, urls.length))
-        names << get_film_name(url)
-      end
-      names
-    end
-  end
-
   def get_specie_name(url)
     if specie = @species.find { |specie| specie.url == url }
       specie.name
@@ -144,7 +68,7 @@ class Person
 
   def get_specie_names(urls)
     if urls.length == 0
-      "n/a"
+      ["n/a"]
     else
       names = []
       urls.each.with_index do |url, index|
