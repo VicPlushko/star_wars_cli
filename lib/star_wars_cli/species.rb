@@ -1,4 +1,6 @@
 class Species
+  extend StarWarsModule::ClassMethods
+  include StarWarsModule::InstanceMethods
   attr_accessor :name, :classification, :designation, :average_height, :skin_colors, :hair_colors, :eye_colors, :average_lifespan, :language, :planet_url, :planet, :people_urls, :people, :films_urls, :films, :url
 
   @@all = []
@@ -29,48 +31,8 @@ class Species
     @@all
   end
 
-  def self.validate_input?(input)
-    input.to_i.between?(1, self.get_limit)
-  end
-
-  def self.find_by_url(url)
-    self.all.find {|x| x.url == url}
-  end
-
-  def self.current_page
-    @@current_page
-  end
-
-  def self.next_page_url
-    @@next_page_url
-  end
-
-  def self.set_next_page_url(page)
-    @@next_page_url = page
-  end
-
   def self.get_species_for_page
     self.all[get_offset..get_limit]
-  end
-
-  def self.get_offset
-    @@current_page * 10 - 10
-  end
-
-  def self.get_limit 
-    @@current_page * 10 -1
-  end
-
-  def self.increment_page_number
-    @@current_page += 1
-  end
-
-  def self.decrement_page_number
-    @@current_page -= 1
-  end
-
-  def get_download_percentage(index, total)
-    (index.to_f/total.to_f*100).round()
   end
 
   def get_planet_name
@@ -89,15 +51,15 @@ class Species
   end
 
   def get_person_name(url)
-    if person = @people.find {|person| person.url == url}
-        person.name
-      elsif person = Person.find_by_url(url)
-        @people << person
-        person.name
-      else
-        person = Api.get_specific_people(url)
-        @people << person
-        person.name
+    if person = @people.find { |person| person.url == url }
+      person.name
+    elsif person = Person.find_by_url(url)
+      @people << person
+      person.name
+    else
+      person = Api.get_specific_people(url)
+      @people << person
+      person.name
     end
   end
 
@@ -115,15 +77,15 @@ class Species
   end
 
   def get_film_name(url)
-    if film = @films.find {|film| film.url == url}
-        film.title
-      elsif film = Film.find_by_url(url)
-        @films << film
-        film.title
-      else
-        film = Api.get_specific_film(url)
-        @films << film
-        film.title
+    if film = @films.find { |film| film.url == url }
+      film.title
+    elsif film = Film.find_by_url(url)
+      @films << film
+      film.title
+    else
+      film = Api.get_specific_film(url)
+      @films << film
+      film.title
     end
   end
 

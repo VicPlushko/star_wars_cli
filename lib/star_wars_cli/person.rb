@@ -1,6 +1,8 @@
 class Person
+  extend StarWarsModule::ClassMethods
+  include StarWarsModule::InstanceMethods
   attr_accessor :name, :height, :mass, :hair_color, :skin_color, :eye_color, :birth_year, :gender, :planet_url, :planet, :url, :starships_urls, :starships, :vehicles_urls, :vehicles, :films_urls, :films, :species_url, :species
-  
+
   @@all = []
   @@current_page = 1
   @@next_page_url = " "
@@ -32,48 +34,8 @@ class Person
     @@all
   end
 
-  def self.validate_input?(input)
-    input.to_i.between?(1, self.get_limit)
-  end
-
-  def self.find_by_url(url)
-    self.all.find { |x| x.url == url }
-  end
-
-  def self.current_page
-    @@current_page
-  end
-
-  def self.next_page_url
-    @@next_page_url
-  end
-
-  def self.set_next_page_url(page)
-    @@next_page_url = page
-  end
-
   def self.get_people_for_page
     self.all[get_offset..get_limit]
-  end
-
-  def self.get_offset
-    @@current_page * 10 - 10
-  end
-
-  def self.get_limit 
-    @@current_page * 10 -1
-  end
-
-  def self.increment_page_number
-    @@current_page += 1
-  end
-
-  def self.decrement_page_number
-    @@current_page -= 1
-  end
-
-  def get_download_percentage(index, total)
-    (index.to_f/total.to_f*100).round()
   end
 
   def get_planet_name
@@ -90,15 +52,15 @@ class Person
   end
 
   def get_starship_name(url)
-    if starship = @starships.find {|starship| starship.url == url}
-        starship.name
-      elsif starship = Starship.find_by_url(url)
-        @starships << starship
-        starship.name
-      else
-        starship = Api.get_specific_starship(url)
-        @starships << starship
-        starship.name
+    if starship = @starships.find { |starship| starship.url == url }
+      starship.name
+    elsif starship = Starship.find_by_url(url)
+      @starships << starship
+      starship.name
+    else
+      starship = Api.get_specific_starship(url)
+      @starships << starship
+      starship.name
     end
   end
 
@@ -116,15 +78,15 @@ class Person
   end
 
   def get_vehicle_name(url)
-    if vehicle = @vehicles.find {|vehicle| vehicle.url == url}
-        vehicle.name
-      elsif vehicle = Vehicle.find_by_url(url)
-        @vehicles << vehicle
-        vehicle.name
-      else
-        vehicle = Api.get_specific_vehicle(url)
-        @vehicles << vehicle
-        vehicle.name
+    if vehicle = @vehicles.find { |vehicle| vehicle.url == url }
+      vehicle.name
+    elsif vehicle = Vehicle.find_by_url(url)
+      @vehicles << vehicle
+      vehicle.name
+    else
+      vehicle = Api.get_specific_vehicle(url)
+      @vehicles << vehicle
+      vehicle.name
     end
   end
 
@@ -142,15 +104,15 @@ class Person
   end
 
   def get_film_name(url)
-    if film = @films.find {|film| film.url == url}
-        film.title
-      elsif film = Film.find_by_url(url)
-        @films << film
-        film.title
-      else
-        film = Api.get_specific_film(url)
-        @films << film
-        film.title
+    if film = @films.find { |film| film.url == url }
+      film.title
+    elsif film = Film.find_by_url(url)
+      @films << film
+      film.title
+    else
+      film = Api.get_specific_film(url)
+      @films << film
+      film.title
     end
   end
 
@@ -168,15 +130,15 @@ class Person
   end
 
   def get_specie_name(url)
-    if specie = @species.find {|specie| specie.url == url}
-        specie.name
-      elsif specie = Species.find_by_url(url)
-        @species << specie
-        specie.name
-      else
-        specie = Api.get_specific_species(url)
-        @species << specie
-        specie.name
+    if specie = @species.find { |specie| specie.url == url }
+      specie.name
+    elsif specie = Species.find_by_url(url)
+      @species << specie
+      specie.name
+    else
+      specie = Api.get_specific_species(url)
+      @species << specie
+      specie.name
     end
   end
 
