@@ -1,9 +1,8 @@
 module StarWarsModule
   module ClassMethods
-    
     @@current_page = 1
     @@next_page_url = " "
-    
+
     def validate_input?(input)
       input.to_i.between?(1, self.get_limit + 1)
     end

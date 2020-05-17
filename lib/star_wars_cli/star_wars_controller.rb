@@ -113,8 +113,6 @@ class StarWarsController
     puts clear_and_format("Films", person.get_film_names(person.films_urls))
   end
 
- 
-
   def self.display_species_selection(input)
     species = Species.all[input.to_i - 1]
     puts "Name: #{species.name}"
