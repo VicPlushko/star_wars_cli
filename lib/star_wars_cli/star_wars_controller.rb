@@ -194,7 +194,7 @@ class StarWarsController
     puts "Title: #{films.title}"
     puts "Epsisode Number: #{films.episode_id}"
     puts " "
-    puts "Opening Crawl: #{films.opening_crawl}"
+    puts "Opening Crawl: #{films.opening_crawl.yellow}"
     puts " "
     puts "Director: #{films.director}"
     puts "Producer: #{films.producer}"

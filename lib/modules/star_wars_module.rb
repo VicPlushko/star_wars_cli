@@ -12,6 +12,10 @@ module StarWarsModule
       self.all.find { |x| x.url == url }
     end
 
+    def reset_current_page
+      @@current_page = 1
+    end
+
     def current_page
       @@current_page
     end

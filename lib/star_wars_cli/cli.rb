@@ -1,9 +1,11 @@
 class Cli
   def run
+    Welcome.welcome_picture
     puts " "
     puts "Hello!! Welcome to my Star Wars app!!"
     puts " "
     while @input != "exit"
+      Person.reset_current_page
       show_menu
       @input = gets.strip
       if menu_valid_input?(@input)
