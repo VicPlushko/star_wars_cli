@@ -13,7 +13,6 @@ class Cli
         puts "Thank you for using my app and May The Force Be With You!!"
         exit
       else
-        puts "input is else"
         puts "Please make a valid selection"
       end
     end
@@ -22,22 +21,16 @@ class Cli
   def handle_user_input(input)
     case input
     when "1"
-      puts "selected people"
       display_people_list
     when "2"
-      puts "selected species"
       display_species_list
     when "3"
-      puts "selected planets"
       display_planets_list
     when "4"
-      puts "selected starships"
       display_starships_list
     when "5"
-      puts "selected vehicles"
       display_vehicles_list
     when "6"
-      puts "selected films"
       display_films_list
     end
   end
@@ -58,8 +51,7 @@ class Cli
 
   def display_people_list
       Api.get_all_people
-    while @input != "exit" && @input != "menu"
-      puts Person.current_page
+    while @input != "exit" && @input != "menu" 
       StarWarsController.print_people(Person.get_people_for_page)
       @input = gets.strip.downcase
       if Person.validate_input?(@input)
@@ -73,10 +65,8 @@ class Cli
       elsif @input == "next" && Person.next_page_url != nil
         Person.increment_page_number
         Api.get_all_people(Person.next_page_url)
-        puts "moving to the next page #{Person.current_page}"
       elsif @input == "previous"  && Person.current_page > 1
         Person.decrement_page_number
-        puts "moving to the previous page #{Person.current_page}"
       elsif @input == "exit"
         puts "Thank you for using my app and May The Force Be With You!!"
         exit
@@ -89,7 +79,6 @@ class Cli
   def display_species_list
       Api.get_all_species
     while @input != "exit" && @input != "menu"
-      puts Species.current_page
       StarWarsController.print_species(Species.get_species_for_page)
       @input = gets.strip.downcase
       if Species.validate_input?(@input)
@@ -103,10 +92,8 @@ class Cli
       elsif @input == "next" && Species.next_page_url != nil
         Species.increment_page_number
         Api.get_all_species(Species.next_page_url)
-        puts "moving to the next page #{Species.current_page}"
       elsif @input == "previous"  && Species.current_page > 1
         Species.decrement_page_number
-        puts "moving to the previous page #{Species.current_page}"
       elsif @input == "exit"
         puts "Thank you for using my app and May The Force Be With You!!"
         exit
@@ -119,7 +106,6 @@ class Cli
   def display_planets_list
       Api.get_all_planets
     while @input != "exit" && @input != "menu"
-      puts Planets.current_page
       StarWarsController.print_planets(Planets.get_planets_for_page)
       @input = gets.strip.downcase
       if Planets.validate_input?(@input)
@@ -133,10 +119,8 @@ class Cli
       elsif @input == "next" && Planets.next_page_url != nil
         Planets.increment_page_number
         Api.get_all_planets(Planets.next_page_url)
-        puts "moving to the next page #{Planets.current_page}"
       elsif @input == "previous"  && Planets.current_page > 1
         Planets.decrement_page_number
-        puts "moving to the previous page #{Planets.current_page}"
       elsif @input == "exit"
         puts "Thank you for using my app and May The Force Be With You!!"
         exit
@@ -149,7 +133,6 @@ class Cli
   def display_starships_list
       Api.get_all_starships
     while @input != "exit" && @input != "menu"
-      puts Starship.current_page
       StarWarsController.print_starships(Starship.get_starships_for_page)
       @input = gets.strip.downcase
       if Starship.validate_input?(@input)
@@ -163,10 +146,8 @@ class Cli
       elsif @input == "next" && Starship.next_page_url != nil
         Starship.increment_page_number
         Api.get_all_starships(Starship.next_page_url)
-        puts "moving to the next page #{Starship.current_page}"
       elsif @input == "previous"  && Starship.current_page > 1
         Starship.decrement_page_number
-        puts "moving to the previous page #{Starship.current_page}"
       elsif @input == "exit"
         puts "Thank you for using my app and May The Force Be With You!!"
         exit
@@ -179,7 +160,6 @@ class Cli
   def display_vehicles_list
       Api.get_all_vehicles
     while @input != "exit" && @input != "menu"
-      puts Vehicle.current_page
       StarWarsController.print_vehicles(Vehicle.get_vehicles_for_page)
       @input = gets.strip.downcase
       if Vehicle.validate_input?(@input)
@@ -193,10 +173,8 @@ class Cli
       elsif @input == "next" && Vehicle.next_page_url != nil
         Vehicle.increment_page_number
         Api.get_all_vehicles(Vehicle.next_page_url)
-        puts "moving to the next page #{Vehicle.current_page}"
       elsif @input == "previous"  && Vehicle.current_page > 1
         Vehicle.decrement_page_number
-        puts "moving to the previous page #{Vehicle.current_page}"
       elsif @input == "exit"
         puts "Thank you for using my app and May The Force Be With You!!"
         exit
@@ -209,7 +187,6 @@ class Cli
   def display_films_list
       Api.get_all_films
     while @input != "exit" && @input != "menu"
-      puts Vehicle.current_page
       StarWarsController.print_films(Film.get_films_for_page)
       @input = gets.strip.downcase
       if Film.validate_input?(@input)
@@ -223,10 +200,8 @@ class Cli
       elsif @input == "next" && Film.next_page_url != nil
         Film.increment_page_number
         Api.get_all_films(Film.next_page_url)
-        puts "moving to the next page #{Film.current_page}"
       elsif @input == "previous"  && Film.current_page > 1
         Film.decrement_page_number
-        puts "moving to the previous page #{Film.current_page}"
       elsif @input == "exit"
         puts "Thank you for using my app and May The Force Be With You!!"
         exit
