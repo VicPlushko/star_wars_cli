@@ -3,6 +3,7 @@ class Person
   include StarWarsModule::InstanceMethods
   include GetFilm
   include GetVehiclesAndStarships
+  include GetSpecies
   attr_accessor :name, :height, :mass, :hair_color, :skin_color, :eye_color, :birth_year, :gender, :planet_url, :planet, :url, :starships_urls, :starships, :vehicles_urls, :vehicles, :films_urls, :films, :species_url, :species
 
   @@all = []
@@ -50,32 +51,6 @@ class Person
       planet = Api.get_specific_planet(@planet_url)
       @planet = planet
       planet.name
-    end
-  end
-
-  def get_specie_name(url)
-    if specie = @species.find { |specie| specie.url == url }
-      specie.name
-    elsif specie = Species.find_by_url(url)
-      @species << specie
-      specie.name
-    else
-      specie = Api.get_specific_species(url)
-      @species << specie
-      specie.name
-    end
-  end
-
-  def get_specie_names(urls)
-    if urls.length == 0
-      ["n/a"]
-    else
-      names = []
-      urls.each.with_index do |url, index|
-        printf("\rDownloading Species: %d%%", get_download_percentage(index, urls.length))
-        names << get_specie_name(url)
-      end
-      names
     end
   end
 end

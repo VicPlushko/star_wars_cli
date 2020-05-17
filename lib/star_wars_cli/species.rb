@@ -2,13 +2,14 @@ class Species
   extend StarWarsModule::ClassMethods
   include StarWarsModule::InstanceMethods
   include GetFilm
-  attr_accessor :name, :classification, :designation, :average_height, :skin_colors, :hair_colors, :eye_colors, :average_lifespan, :language, :planet_url, :planet, :people_urls, :people, :films_urls, :films, :url
+  include GetCharacters
+  attr_accessor :name, :classification, :designation, :average_height, :skin_colors, :hair_colors, :eye_colors, :average_lifespan, :language, :planet_url, :planet, :characters_urls, :characters, :films_urls, :films, :url
 
   @@all = []
   @@current_page = 1
   @@next_page_url = " "
 
-  def initialize(name:, classification:, designation:, average_height:, skin_colors:, hair_colors:, eye_colors:, average_lifespan:, language:, planet_url:, people_urls:, films_urls:, url:)
+  def initialize(name:, classification:, designation:, average_height:, skin_colors:, hair_colors:, eye_colors:, average_lifespan:, language:, planet_url:, characters_urls:, films_urls:, url:)
     @name = name
     @classification = classification
     @designation = designation
@@ -20,8 +21,8 @@ class Species
     @language = language
     @planet_url = planet_url
     @planet = planet
-    @people_urls = people_urls
-    @people = []
+    @characters_urls = characters_urls
+    @characters = []
     @films_urls = films_urls
     @films = []
     @url = url
@@ -48,32 +49,6 @@ class Species
       planet = Api.get_specific_planet(@planet_url)
       @planet = planet
       planet.name
-    end
-  end
-
-  def get_person_name(url)
-    if person = @people.find { |person| person.url == url }
-      person.name
-    elsif person = Person.find_by_url(url)
-      @people << person
-      person.name
-    else
-      person = Api.get_specific_people(url)
-      @people << person
-      person.name
-    end
-  end
-
-  def get_people_names(urls)
-    if urls.length == 0
-      ["n/a"]
-    else
-      names = []
-      urls.each.with_index do |url, index|
-        printf("\rDownloading People: %d%%", get_download_percentage(index, urls.length))
-        names << get_person_name(url)
-      end
-      names
     end
   end
 end

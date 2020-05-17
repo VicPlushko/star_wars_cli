@@ -2,6 +2,8 @@ class Film
   extend StarWarsModule::ClassMethods
   include StarWarsModule::InstanceMethods
   include GetVehiclesAndStarships
+  include GetCharacters
+  include GetSpecies
   attr_accessor :title, :episode_id, :opening_crawl, :director, :producer, :release_date, :characters_urls, :characters, :planets_urls, :planets, :starships_urls, :starships, :vehicles_urls, :vehicles, :species_urls, :species, :url
 
   @@all = []
@@ -37,32 +39,6 @@ class Film
     self.all[get_offset..get_limit]
   end
 
-  def get_character_name(url)
-    if character = @characters.find { |character| character.url == url }
-      character.name
-    elsif character = Person.find_by_url(url)
-      @characters << character
-      character.name
-    else
-      character = Api.get_specific_people(url)
-      @characters << character
-      character.name
-    end
-  end
-
-  def get_character_names(urls)
-    if urls.length == 0
-      ["n/a"]
-    else
-      names = []
-      urls.each.with_index do |url, index|
-        printf("\rDownloading Characters: %d%%", get_download_percentage(index, urls.length))
-        names << get_character_name(url)
-      end
-      names
-    end
-  end
-
   def get_planet_name(url)
     if planet = @planets.find { |planet| planet.url == url }
       planet.name
@@ -84,32 +60,6 @@ class Film
       urls.each.with_index do |url, index|
         printf("\rDownloading Planets: %d%%", get_download_percentage(index, urls.length))
         names << get_planet_name(url)
-      end
-      names
-    end
-  end
-
-  def get_species_name(url)
-    if specie = @species.find { |specie| specie.url == url }
-      specie.name
-    elsif specie = Species.find_by_url(url)
-      @species << specie
-      specie.name
-    else
-      specie = Api.get_specific_species(url)
-      @species << specie
-      specie.name
-    end
-  end
-
-  def get_species_names(urls)
-    if urls.length == 0
-      ["n/a"]
-    else
-      names = []
-      urls.each.with_index do |url, index|
-        printf("\rDownloading Species: %d%%", get_download_percentage(index, urls.length))
-        names << get_species_name(url)
       end
       names
     end

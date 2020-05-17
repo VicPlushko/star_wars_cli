@@ -103,7 +103,7 @@ class StarWarsController
     puts "Hair Color: #{person.hair_color}"
     puts "Eye Color: #{person.eye_color}"
     puts "Skin Color: #{person.skin_color}"
-    puts clear_and_format("Species", person.get_specie_names(person.species_url))
+    puts clear_and_format("Species", person.get_species_names(person.species_url))
     puts "Homeworld: #{person.get_planet_name}"
     puts " "
     puts clear_and_format("Starships", person.get_starship_names(person.starships_urls))
@@ -128,7 +128,7 @@ class StarWarsController
     puts "Language: #{species.language}"
     puts "Homeworld: #{species.get_planet_name}"
     puts " "
-    puts clear_and_format("People", species.get_people_names(species.people_urls))
+    puts clear_and_format("Characters", species.get_character_names(species.characters_urls))
     puts " "
     puts clear_and_format("Films", species.get_film_names(species.films_urls))
   end
@@ -145,7 +145,7 @@ class StarWarsController
     puts "Surface Water: #{planets.surface_water}"
     puts "Population: #{planets.population}"
     puts " "
-    puts clear_and_format("Residents", planets.get_resident_names(planets.residents_urls))
+    puts clear_and_format("Residents", planets.get_character_names(planets.characters_urls))
     puts " "
     puts clear_and_format("Films", planets.get_film_names(planets.films_urls))
   end
@@ -165,7 +165,7 @@ class StarWarsController
     puts "Hyperdrive Rating: #{starship.hyperdrive_rating}"
     puts "Starship Class: #{starship.starship_class}"
     puts " "
-    puts clear_and_format("Pilots", starship.get_pilot_names(starship.pilots_urls))
+    puts clear_and_format("Pilots", starship.get_character_names(starship.characters_urls))
     puts " "
     puts clear_and_format("Films", starship.get_film_names(starship.films_urls))
   end
@@ -184,7 +184,7 @@ class StarWarsController
     puts "Consumables: #{vehicle.consumables}"
     puts "Vehicle Class: #{vehicle.vehicle_class}"
     puts " "
-    puts clear_and_format("Pilots", vehicle.get_pilot_names(vehicle.pilots_urls))
+    puts clear_and_format("Pilots", vehicle.get_character_names(vehicle.characters_urls))
     puts " "
     puts clear_and_format("Films", vehicle.get_film_names(vehicle.films_urls))
   end

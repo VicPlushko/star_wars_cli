@@ -63,7 +63,7 @@ class Api
           average_lifespan: specie["average_lifespan"],
           language: specie["language"],
           planet_url: specie["homeworld"],
-          people_urls: specie["people"],
+          characters_urls: specie["people"],
           films_urls: specie["films"],
           url: specie["url"],
         )
@@ -85,7 +85,7 @@ class Api
       average_lifespan: json["average_lifespan"],
       language: json["language"],
       planet_url: json["homeworld"],
-      people_urls: json["people"],
+      characters_urls: json["people"],
       films_urls: json["films"],
       url: json["url"],
     )
@@ -108,7 +108,7 @@ class Api
           surface_water: planet["surface_water"],
           population: planet["population"],
           url: planet["url"],
-          residents_urls: planet["residents"],
+          characters_urls: planet["residents"],
           films_urls: planet["films"],
         )
       end
@@ -129,7 +129,7 @@ class Api
       surface_water: json["surface_water"],
       population: json["population"],
       url: json["url"],
-      residents_urls: json["residents"],
+      characters_urls: json["residents"],
       films_urls: json["films"],
     )
   end
@@ -153,7 +153,7 @@ class Api
           consumables: starship["consumables"],
           hyperdrive_rating: starship["hyperdrive_rating"],
           starship_class: starship["starship_class"],
-          pilots_urls: starship["pilots"],
+          characters_urls: starship["pilots"],
           films_urls: starship["films"],
           url: starship["url"],
         )
@@ -177,7 +177,7 @@ class Api
       consumables: json["consumables"],
       hyperdrive_rating: json["hyperdrive_rating"],
       starship_class: json["starship_class"],
-      pilots_urls: json["pilots"],
+      characters_urls: json["pilots"],
       films_urls: json["films"],
       url: json["url"],
     )
@@ -201,7 +201,7 @@ class Api
           cargo_capacity: vehicle["cargo_capacity"],
           consumables: vehicle["consumables"],
           vehicle_class: vehicle["vehicle_class"],
-          pilots_urls: vehicle["pilots"],
+          characters_urls: vehicle["pilots"],
           films_urls: vehicle["films"],
           url: vehicle["url"],
         )
@@ -224,7 +224,7 @@ class Api
       cargo_capacity: json["cargo_capacity"],
       consumables: json["consumables"],
       vehicle_class: json["vehicle_class"],
-      pilots_urls: json["pilots"],
+      characters_urls: json["pilots"],
       films_urls: json["films"],
       url: json["url"],
     )
