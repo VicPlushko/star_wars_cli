@@ -193,6 +193,7 @@ class StarWarsController
     films = Film.all[input.to_i - 1]
     puts "Title: #{films.title}"
     puts "Epsisode Number: #{films.episode_id}"
+    puts " "
     puts "Opening Crawl: #{films.opening_crawl}"
     puts " "
     puts "Director: #{films.director}"
